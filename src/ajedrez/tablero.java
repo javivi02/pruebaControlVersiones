@@ -52,8 +52,10 @@ public class tablero {
        
     }
     
-    public void actualizarCoordenada(){
+    public void actualizarCoordenada(String coordenadaIncio, String coordenadaFinal){
         
+        piezasTablero.put(coordenadaIncio, null);
+        piezasTablero.put(coordenadaFinal, piezas.caballo);
         
     }
     
