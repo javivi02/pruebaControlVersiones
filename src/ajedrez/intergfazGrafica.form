@@ -74,6 +74,9 @@
               <Font name="Tahoma" size="48" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p01ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="p02">
           <Properties>
@@ -81,6 +84,9 @@
               <Font name="Tahoma" size="48" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p02ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="p10">
           <Properties>
@@ -88,6 +94,9 @@
               <Font name="Tahoma" size="48" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p10ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="p11">
           <Properties>
@@ -95,6 +104,9 @@
               <Font name="Tahoma" size="48" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p11ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="p12">
           <Properties>
@@ -112,7 +124,7 @@
               <Font name="Tahoma" size="48" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/bn.png"/>
+              <Image iconType="3" name="/img/wn.png"/>
             </Property>
           </Properties>
           <Events>
