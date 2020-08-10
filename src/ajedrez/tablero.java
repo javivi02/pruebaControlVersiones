@@ -38,7 +38,7 @@ public class tablero {
         piezasTablero.put(cooredanda12, null);
         piezasTablero.put(cooredanda20, piezas.caballo);
         piezasTablero.put(cooredanda21, null);
-        piezasTablero.put(cooredanda22, null);
+        piezasTablero.put(cooredanda22, piezas.peon);
 
     }
     

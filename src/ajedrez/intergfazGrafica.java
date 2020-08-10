@@ -8,6 +8,7 @@ package ajedrez;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,42 +33,37 @@ public class intergfazGrafica extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    private void verPosiblesMovimientos(String coordenada){
+    private String piezaCoordenadaTablero(String coordenada){
+          
+        return tablero.contenidoCoordenada(coordenada);
+    }
+    
+    private void marcaMovimientoTablero(String coordenada){
 
-        if (!tablero.contenidoCoordenada(coordenada).equalsIgnoreCase(null)) {
+        String tipoFicha = piezaCoordenadaTablero(coordenada);
+        
+        switch (tipoFicha) {
+            case "C": casillasCaballo(coordenada);break;
+            case "T": break;
+            case "A": break;              
+            case "D": break;
+            case "R": break;               
+            case "P": break;            
 
-            ArrayList<String> temporal = new ArrayList<>();
-
-            String tipoFicha = tablero.contenidoCoordenada(coordenada);
-
-            switch (tipoFicha) {
-                case "C":
-                    temporal = movimientos.moverCaballo(coordenada);
-
-                    for (int i = 0; i < temporal.size(); i++) {
-
-                        coordenadaJBoton(temporal.get(i)).setBackground(Color.red);
-                    }
-
-                    break;
-
-                case "T":
-                    break;
-
-                case "A":
-                    break;
-
-                case "D":
-                    break;
-
-                case "R":
-                    break;
-
-                case "P":
-                    break;
-
-            }
         }
+    }
+    
+    private void casillasCaballo(String coordenada){
+        
+        ArrayList<String> temporal = new ArrayList<>();
+
+        temporal = movimientos.moverCaballo(coordenada);
+
+        for (int i = 0; i < temporal.size(); i++) {
+
+            coordenadaJBoton(temporal.get(i)).setBackground(Color.red);
+        }
+        
     }
     
     private void click(){
@@ -77,7 +73,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
             click = false;
             mover = true;
 
-        }else if (click == false) {
+        }else {
             
             resetearBackgroud();
             click = true;  
@@ -232,6 +228,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p21);
 
         p22.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p22ActionPerformed(evt);
@@ -264,7 +261,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p20";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p20ActionPerformed
 
@@ -273,7 +270,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p00";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p00ActionPerformed
 
@@ -282,7 +279,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p22";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p22ActionPerformed
 
@@ -291,7 +288,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p12";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p12ActionPerformed
 
@@ -300,7 +297,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p21";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p21ActionPerformed
 
@@ -309,7 +306,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p01";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p01ActionPerformed
 
@@ -318,7 +315,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p02";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p02ActionPerformed
 
@@ -327,7 +324,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p10";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p10ActionPerformed
 
@@ -336,7 +333,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String coordenada = "p11";
         mover(coordenadaIncio, coordenada);
         coordenadaIncio = coordenada;
-        verPosiblesMovimientos(coordenada);
+        marcaMovimientoTablero(coordenada);
         click();
     }//GEN-LAST:event_p11ActionPerformed
 
