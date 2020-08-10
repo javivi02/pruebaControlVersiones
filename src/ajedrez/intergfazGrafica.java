@@ -48,7 +48,8 @@ public class intergfazGrafica extends javax.swing.JFrame {
             case "T": break;
             case "A": break;              
             case "D": break;
-            case "R": break;               
+            case "R": break;
+            case "-": System.out.println("NADA") ;break;
         }
     }
     
@@ -67,7 +68,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void marcaCasillasPeon(String coordenada){
         
+        String temporal = movimientos.moverPeon(coordenada);
         
+        coordenadaJButton(temporal).setBackground(Color.red);
     }
     
     private void seleccionarJButton(){
@@ -129,8 +132,8 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
             switch (tipoFicha) {
                 
-                case "C": moverCaballo(coordenadaInicio, coordenadaFinal);break;
-                case "P": break;
+                case "C": moverCaballo(coordenadaInicio, coordenadaFinal); break;
+                case "P": moverPeon(coordenadaInicio, coordenadaFinal); break;
                 case "T": break;
                 case "A": break;              
                 case "D": break;
@@ -149,9 +152,20 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaIncio).setIcon(null);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
                     tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                    tablero.mostrarTablero();
                     
                 }
             }
+    }
+    
+    private void moverPeon(String coordenadaIncio, String coordenadaFinal){
+        
+        String temporal = movimientos.moverPeon(coordenadaIncio);
+        
+        coordenadaJButton(coordenadaIncio).setIcon(null);
+        coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
+        tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+        tablero.mostrarTablero();
         
     }
 
