@@ -40,12 +40,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String tipoFicha = piezaCoordenadaTablero(coordenada);
         
         switch (tipoFicha) {
-            case "C": marcaCasillasCaballo(coordenada);break;
-            case "P": marcaCasillasPeon(coordenada); break;
-            case "T": marcaCasillasTorre(coordenada); break;
-            case "A": break;              
-            case "D": break;
-            case "R": break;
+            case "CB": marcaCasillasCaballo(coordenada);break;
+            case "PB": marcaCasillasPeon(coordenada); break;
+            case "TB": marcaCasillasTorre(coordenada); break;
+            case "AB": break;              
+            case "DB": break;
+            case "RB": break;
             case "-": System.out.println("NADA") ;break;
         }
     }
@@ -54,8 +54,8 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
 
-        temporal = movimientos.moverCaballo(coordenada);
-
+        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverCaballo(coordenada), tablero.getCoordenadasPiezasBlancas());
+        
         for (int i = 0; i < temporal.size(); i++) {
 
             coordenadaJButton(temporal.get(i)).setBackground(Color.red);
@@ -64,24 +64,48 @@ public class intergfazGrafica extends javax.swing.JFrame {
     }
     
     private void marcaCasillasPeon(String coordenada){
-        
-        String temporal = movimientos.moverPeon(coordenada);
-        
-        coordenadaJButton(temporal).setBackground(Color.red);
 
+        ArrayList<String> temporal = new ArrayList<>();
+        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverPeon(coordenada), tablero.getCoordenadasPiezasBlancas());
+        
+        for (int i = 0; i < temporal.size(); i++) {
+
+            coordenadaJButton(temporal.get(i)).setBackground(Color.red);
+        }
+  
     }
     
     private void marcaCasillasTorre(String coordenada){
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        temporal = movimientos.moverTorre(coordenada);
+        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenada), tablero.getCoordenadasPiezasBlancas());
         
         for (int i = 0; i < temporal.size(); i++) {
 
             coordenadaJButton(temporal.get(i)).setBackground(Color.red);
         }
 
+    }
+    
+    private ArrayList <String> filtroCoordenadasPiezasBlancas(ArrayList <String> movimientos, ArrayList <String> piezas){
+        
+        ArrayList <String> resultado = new ArrayList<>();
+
+        // Recorro ambos ArrayList, busco coincidencias y las elimino de movimientos. Agrego movimientos a resultado
+        for (int i = 0; i < piezas.size(); i++) {
+            for (int j = 0; j < movimientos.size(); j++) {
+                if(piezas.get(i).equalsIgnoreCase(movimientos.get(j))){
+                    movimientos.remove(j);
+                }
+            }
+        }
+        
+        for (int i = 0; i < movimientos.size(); i++) {
+            resultado.add(movimientos.get(i));
+        }
+        
+        return resultado;
     }
     
     private void seleccionarJButton(){
@@ -143,19 +167,19 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
             switch (tipoFicha) {
                 
-                case "C": moverCaballo(coordenadaInicio, coordenadaFinal); break;
-                case "P": moverPeon(coordenadaInicio, coordenadaFinal); break;
-                case "T": moverTorre(coordenadaInicio, coordenadaFinal); break;
-                case "A": break;              
-                case "D": break;
-                case "R": break;               
+                case "CB": moverCaballo(coordenadaInicio, coordenadaFinal); break;
+                case "PB": moverPeon(coordenadaInicio, coordenadaFinal); break;
+                case "TB": moverTorre(coordenadaInicio, coordenadaFinal); break;
+                case "AB": break;              
+                case "DB": break;
+                case "RB": break;               
             }
         }
     }
     
     private void moverCaballo(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = movimientos.moverCaballo(coordenadaIncio);
+        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -163,29 +187,35 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                 tablero.mostrarTablero();
 
             }
         }
     }
     
-    private void moverPeon(String coordenadaIncio, String coordenadaFinal){
+    private void moverPeon(String coordenadaInicio, String coordenadaFinal){
         
-        String temporal = movimientos.moverPeon(coordenadaIncio);
-        
-        if(coordenadaFinal.equalsIgnoreCase(temporal)){
-            
-            coordenadaJButton(coordenadaIncio).setIcon(null);
-            coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
-            tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-            tablero.mostrarTablero();
-            
+        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverPeon(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+
+        for (int i = 0; i < temporal.size(); i++) {
+            if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
+
+                coordenadaJButton(coordenadaIncio).setIcon(null);
+                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
+                tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
+                tablero.mostrarTablero();
+
+            }
         }
+
+
     }
     
     private void moverTorre(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = movimientos.moverTorre(coordenadaIncio);
+        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -193,6 +223,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                 tablero.mostrarTablero();
 
             }
