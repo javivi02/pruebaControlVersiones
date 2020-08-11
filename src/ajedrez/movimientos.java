@@ -7,12 +7,7 @@ import java.util.ArrayList;
  */
 public class movimientos {
     
-    private tablero tablero;
-    
-//    public movimientos(tablero tablero){
-//        
-//        this.tablero = tablero;
-//    }
+//    private tablero tablero;
     
     public ArrayList <String> moverCaballo(String coordenada){
         
@@ -59,17 +54,68 @@ public class movimientos {
         return resultado;
     }
     
+    public String moverPeon (String coordenada){
         
+        String resultado = "";
+        
+        String temporal [] = coordenada.split("");
+        
+        int fila = Integer.parseInt(temporal[1]);
+        int columna = Integer.parseInt(temporal[2]);
+        
+        if(fila > 0) resultado = "p" + (fila - 1) + columna;
+        // nos salimos del limite al pedir la siguiente posicion, lo apaño con el else
+        else resultado = "p" + "0" + columna;
+        
+        return resultado;
+        
+    }
+    
+    public ArrayList <String> moverTorre (String coordenada){
+        
+        ArrayList <String> resultado = new ArrayList<>();
+        
+        String temporal [] = coordenada.split("");
+        
+        int fila = Integer.parseInt(temporal[1]);
+        int columna = Integer.parseInt(temporal[2]);
+        
+        
+        //posibles movimientos izquierda
+        for (int i = columna - 1; i >= 0; i--) {
+            resultado.add("p" + fila + i);
+        }
+        
+        //posibles movimientos derecha
+        for (int i = columna + 1 ; i < tablero.FILAS; i++) {
+            resultado.add("p" + fila + i);
+        }
+        
+        //posibles movimientos arriba
+        for (int i = fila - 1; i >= 0; i--) {
+            resultado.add("p" + i + columna);
+        }
+        
+        //posibles movimientos abajo
+        for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
+            resultado.add("p" + i + columna);
+        }
+
+        return resultado;
+    }
+    
     
     public static void main(String[] args) {
         
         movimientos movimientos = new movimientos();
         
-        ArrayList <String> listar = movimientos.moverCaballo("p00");
+        ArrayList <String> listar = movimientos.moverTorre("p21");
         
         for (int i = 0; i < listar.size(); i++) {
             System.out.print(listar.get(i) + " ");
         }
+        
+//        System.out.println(movimientos.moverPeon("p01"));
         
     }
 }

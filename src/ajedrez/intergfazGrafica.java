@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajedrez;
 
 import java.awt.Color;
@@ -29,7 +24,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public intergfazGrafica() {
+        
         initComponents();
+        
         this.setLocationRelativeTo(null);
     }
     
@@ -45,7 +42,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         switch (tipoFicha) {
             case "C": marcaCasillasCaballo(coordenada);break;
             case "P": marcaCasillasPeon(coordenada); break;
-            case "T": break;
+            case "T": marcaCasillasTorre(coordenada); break;
             case "A": break;              
             case "D": break;
             case "R": break;
@@ -71,6 +68,20 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String temporal = movimientos.moverPeon(coordenada);
         
         coordenadaJButton(temporal).setBackground(Color.red);
+
+    }
+    
+    private void marcaCasillasTorre(String coordenada){
+        
+        ArrayList<String> temporal = new ArrayList<>();
+        
+        temporal = movimientos.moverTorre(coordenada);
+        
+        for (int i = 0; i < temporal.size(); i++) {
+
+            coordenadaJButton(temporal.get(i)).setBackground(Color.red);
+        }
+
     }
     
     private void seleccionarJButton(){
@@ -134,7 +145,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 
                 case "C": moverCaballo(coordenadaInicio, coordenadaFinal); break;
                 case "P": moverPeon(coordenadaInicio, coordenadaFinal); break;
-                case "T": break;
+                case "T": moverTorre(coordenadaInicio, coordenadaFinal); break;
                 case "A": break;              
                 case "D": break;
                 case "R": break;               
@@ -142,30 +153,58 @@ public class intergfazGrafica extends javax.swing.JFrame {
         }
     }
     
-    private void moverCaballo(String coordenadaInicio, String coordenadaFinal){
-        
-        ArrayList <String> temporal = movimientos.moverCaballo(coordenadaIncio);
-            
-            for (int i = 0; i < temporal.size(); i++) {
-                if(coordenadaFinal.equalsIgnoreCase(temporal.get(i))){
-                    
-                    coordenadaJButton(coordenadaIncio).setIcon(null);
-                    coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
-                    tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                    tablero.mostrarTablero();
-                    
-                }
+    private void moverCaballo(String coordenadaInicio, String coordenadaFinal) {
+
+        ArrayList<String> temporal = movimientos.moverCaballo(coordenadaIncio);
+
+        for (int i = 0; i < temporal.size(); i++) {
+            if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
+
+                coordenadaJButton(coordenadaIncio).setIcon(null);
+                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
+                tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.mostrarTablero();
+
             }
+        }
     }
     
     private void moverPeon(String coordenadaIncio, String coordenadaFinal){
         
         String temporal = movimientos.moverPeon(coordenadaIncio);
         
-        coordenadaJButton(coordenadaIncio).setIcon(null);
-        coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
-        tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-        tablero.mostrarTablero();
+        if(coordenadaFinal.equalsIgnoreCase(temporal)){
+            
+            coordenadaJButton(coordenadaIncio).setIcon(null);
+            coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
+            tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+            tablero.mostrarTablero();
+            
+        }
+    }
+    
+    private void moverTorre(String coordenadaInicio, String coordenadaFinal) {
+
+        ArrayList<String> temporal = movimientos.moverTorre(coordenadaIncio);
+
+        for (int i = 0; i < temporal.size(); i++) {
+            if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
+
+                coordenadaJButton(coordenadaIncio).setIcon(null);
+                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
+                tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.mostrarTablero();
+
+            }
+        }
+    }
+    
+    private void pasosAlHacerClick(String coordenada){
+        
+        mover(coordenadaIncio, coordenada);
+        coordenadaIncio = coordenada;
+        marcaMovimientoTablero(coordenada);
+        seleccionarJButton();
         
     }
 
@@ -252,6 +291,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p20);
 
         p21.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); // NOI18N
         p21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p21ActionPerformed(evt);
@@ -291,82 +331,55 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private void p20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p20ActionPerformed
 
         String coordenada = "p20";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p20ActionPerformed
 
     private void p00ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p00ActionPerformed
       
         String coordenada = "p00";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p00ActionPerformed
 
     private void p22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p22ActionPerformed
 
         String coordenada = "p22";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p22ActionPerformed
 
     private void p12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p12ActionPerformed
 
         String coordenada = "p12";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p12ActionPerformed
 
     private void p21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p21ActionPerformed
 
         String coordenada = "p21";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p21ActionPerformed
 
     private void p01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p01ActionPerformed
 
         String coordenada = "p01";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p01ActionPerformed
 
     private void p02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p02ActionPerformed
 
         String coordenada = "p02";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p02ActionPerformed
 
     private void p10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p10ActionPerformed
 
         String coordenada = "p10";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p10ActionPerformed
 
     private void p11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p11ActionPerformed
 
         String coordenada = "p11";
-        mover(coordenadaIncio, coordenada);
-        coordenadaIncio = coordenada;
-        marcaMovimientoTablero(coordenada);
-        seleccionarJButton();
+        pasosAlHacerClick(coordenada);
     }//GEN-LAST:event_p11ActionPerformed
 
     /**
