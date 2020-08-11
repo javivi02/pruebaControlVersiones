@@ -1,5 +1,6 @@
 package ajedrez;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,7 +12,10 @@ import java.util.TreeMap;
  */
 public class tablero {
     
-    public static HashMap <String, String> piezasTablero = new HashMap<>();
+    private static HashMap <String, String> piezasTablero = new HashMap<>();
+
+    private ArrayList <String> coordenadasPiezasBlancas = new ArrayList<>();
+    private ArrayList <String> coordenadasPiezasNegras = new ArrayList<>();
 
     private static final String cooredanda00 = "p00";
     private static final String cooredanda01 = "p01";
@@ -31,21 +35,22 @@ public class tablero {
     public tablero(){
         
         inicioPiezas();
+        rellenarCoordenadasPiezasBlancas();
 //        movimientos = new movimientos(this);
         
     }
     
     private void inicioPiezas(){
         
-        piezasTablero.put(cooredanda00, piezas.caballo);
+        piezasTablero.put(cooredanda00, piezas.caballoBlanco);
         piezasTablero.put(cooredanda01, "-");
         piezasTablero.put(cooredanda02, "-");
         piezasTablero.put(cooredanda10, "-");
         piezasTablero.put(cooredanda11, "-");
         piezasTablero.put(cooredanda12, "-");
-        piezasTablero.put(cooredanda20, piezas.caballo);
-        piezasTablero.put(cooredanda21, piezas.torre);
-        piezasTablero.put(cooredanda22, piezas.peon);
+        piezasTablero.put(cooredanda20, piezas.caballoBlanco);
+        piezasTablero.put(cooredanda21, piezas.torreBlanca);
+        piezasTablero.put(cooredanda22, piezas.peonBlanco);
 
     }
     
@@ -86,6 +91,28 @@ public class tablero {
         System.out.println("--------------------");
     }
     
+    public void rellenarCoordenadasPiezasBlancas(){
+        
+        Iterator recorre = piezasTablero.keySet().iterator();
+        
+        while(recorre.hasNext()){
+            
+            String clave = (String) recorre.next();
+            if(!piezasTablero.get(clave).equalsIgnoreCase("-"))coordenadasPiezasBlancas.add(clave);
+        }
+    }
+    
+    public void actualizarCoordenadasPiezasBlancas(String coordenadaInicio, String coordenadaFinal){
+        
+        coordenadasPiezasBlancas.remove(coordenadaInicio);
+        coordenadasPiezasBlancas.add(coordenadaFinal);
+        
+    }
+    
+    public ArrayList<String> getCoordenadasPiezasBlancas() {
+        return coordenadasPiezasBlancas;
+    }
+    
     
     public static void main(String[] args) {
         
@@ -100,6 +127,12 @@ public class tablero {
 
         tablero.mostrarTablero();
         
+        ArrayList <String> listar = tablero.getCoordenadasPiezasBlancas();
+        
+        for (int i = 0; i < listar.size(); i++) {
+            System.out.println(listar.get(i));
+        }
+ 
     }
     
     

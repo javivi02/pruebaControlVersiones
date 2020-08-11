@@ -1,5 +1,6 @@
 package ajedrez;
 
+import com.sun.jndi.toolkit.ctx.Continuation;
 import java.util.ArrayList;
 
 /**
@@ -54,19 +55,17 @@ public class movimientos {
         return resultado;
     }
     
-    public String moverPeon (String coordenada){
+    public ArrayList <String> moverPeon (String coordenada){
         
-        String resultado = "";
+        ArrayList <String> resultado = new ArrayList<>();
         
         String temporal [] = coordenada.split("");
         
         int fila = Integer.parseInt(temporal[1]);
         int columna = Integer.parseInt(temporal[2]);
         
-        if(fila > 0) resultado = "p" + (fila - 1) + columna;
-        // nos salimos del limite al pedir la siguiente posicion, lo apaño con el else
-        else resultado = "p" + "0" + columna;
-        
+        if(fila > 0) resultado.add("p" + (fila - 1) + columna);
+
         return resultado;
         
     }

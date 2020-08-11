@@ -22,6 +22,8 @@ public class pruebas {
         for (int i = 0; i < movimiento.size(); i++) {
              System.out.println(movimiento.get(i).movimiento());
         }
+        
+        
     }
     
 
