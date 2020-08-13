@@ -9,10 +9,10 @@ public class movimientos {
     
     private tablero tablero;
     
-    public movimientos(){
-        
-        tablero = new tablero();
-    }
+//    public movimientos(){
+//        
+//        tablero = new tablero();
+//    }
     
     public ArrayList <String> moverCaballo(String coordenada){
         
@@ -89,7 +89,7 @@ public class movimientos {
         
     }
     
-    public ArrayList <String> moverTorre (String coordenada){
+    public ArrayList <String> moverTorre (ArrayList <String> piezasBlancas, String coordenada){
         
         ArrayList <String> resultado = new ArrayList<>();
         
@@ -101,32 +101,32 @@ public class movimientos {
         
         //posibles movimientos izquierda
         for (int i = columna - 1; i >= 0; i--) {
-            if(filtroPiezasBlancas("p" + fila + i)) break;
+            if(filtroPiezasBlancas(piezasBlancas, "p" + fila + i)) break;
             resultado.add("p" + fila + i);
         }
         
         //posibles movimientos derecha
         for (int i = columna + 1 ; i < tablero.FILAS; i++) {
-            if(filtroPiezasBlancas("p" + fila + i)) break;
+            if(filtroPiezasBlancas(piezasBlancas, "p" + fila + i)) break;
             resultado.add("p" + fila + i);
         }
         
         //posibles movimientos arriba
         for (int i = fila - 1; i >= 0; i--) {
-            if(filtroPiezasBlancas("p" + fila + i)) break;
+            if(filtroPiezasBlancas(piezasBlancas, "p" + i + columna)) break;
             resultado.add("p" + i + columna);
         }
         
         //posibles movimientos abajo
         for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
-            if(filtroPiezasBlancas("p" + fila + i)) break;
+            if(filtroPiezasBlancas(piezasBlancas, "p" + i + columna)) break;
             resultado.add("p" + i + columna);
         }
 
         return resultado;
     }
     
-    public ArrayList <String> moverAlfil (String coordenada){
+    public ArrayList <String> moverAlfil (ArrayList <String> piezasBlancas, String coordenada){
 
         ArrayList <String> resultado = new ArrayList<>();
         
@@ -137,21 +137,25 @@ public class movimientos {
 
         //posibles movimientos derecha abajo
         for (int i = 1; fila + i < tablero.FILAS && columna - i >= 0; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila + i) + (columna - i))) break;
             resultado.add("p" + (fila + i) + (columna - i)); 
         }
         
         //posibles movimientos izquierda abajo
         for (int i = 1; fila + i < tablero.FILAS && columna + i < tablero.COLUMNAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila + i) + (columna + i))) break;
             resultado.add("p" + (fila + i) + (columna + i)); 
         }
         
         //posibles movimientos derecha arriba
         for (int i = 1; fila - i >= 0 && columna + i < tablero.COLUMNAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila - i) + (columna + i))) break;
             resultado.add("p" + (fila - i) + (columna + i)); 
         }
         
         //posibles movimientos izquierda arriba
         for (int i = 1; fila - i >= 0 && columna - i >= 0; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila - i) + (columna - i))) break;
             resultado.add("p" + (fila - i) + (columna - i)); 
         }
         
@@ -159,7 +163,7 @@ public class movimientos {
         
     }
     
-    public ArrayList <String> moverDama (String coordenada){
+    public ArrayList <String> moverDama (ArrayList <String> piezasBlancas, String coordenada){
 
         ArrayList <String> resultado = new ArrayList<>();
         
@@ -170,41 +174,49 @@ public class movimientos {
 
         //posibles movimientos derecha abajo
         for (int i = 1; fila + i < tablero.FILAS && columna - i >= 0; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila + i) + (columna - i))) break;
             resultado.add("p" + (fila + i) + (columna - i)); 
         }
         
         //posibles movimientos izquierda abajo
         for (int i = 1; fila + i < tablero.FILAS && columna + i < tablero.COLUMNAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila + i) + (columna + i))) break;
             resultado.add("p" + (fila + i) + (columna + i)); 
         }
         
         //posibles movimientos derecha arriba
         for (int i = 1; fila - i >= 0 && columna + i < tablero.COLUMNAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila - i) + (columna + i))) break;
             resultado.add("p" + (fila - i) + (columna + i)); 
         }
         
         //posibles movimientos izquierda arriba
         for (int i = 1; fila - i >= 0 && columna - i >= 0; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + (fila - i) + (columna - i))) break;
             resultado.add("p" + (fila - i) + (columna - i)); 
         }
         
         //posibles movimientos izquierda
         for (int i = columna - 1; i >= 0; i--) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + fila + i)) break;
             resultado.add("p" + fila + i);
         }
         
         //posibles movimientos derecha
         for (int i = columna + 1 ; i < tablero.FILAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + fila + i)) break;
             resultado.add("p" + fila + i);
         }
         
         //posibles movimientos arriba
         for (int i = fila - 1; i >= 0; i--) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + i + columna)) break;
             resultado.add("p" + i + columna);
         }
         
         //posibles movimientos abajo
         for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
+            if(filtroPiezasBlancas(piezasBlancas, "p" + i + columna)) break;
             resultado.add("p" + i + columna);
         }
         
@@ -265,9 +277,9 @@ public class movimientos {
         
     }
     
-    private boolean filtroPiezasBlancas(String valorCoordenada){
+    private boolean filtroPiezasBlancas(ArrayList <String> piezasBlancas, String valorCoordenada){
         
-        ArrayList <String> temporal = tablero.getCoordenadasPiezasBlancas();
+        ArrayList <String> temporal = piezasBlancas;
         
         for (int i = 0; i < temporal.size(); i++) {
             if(temporal.get(i).equalsIgnoreCase(valorCoordenada)) return true;
@@ -282,20 +294,29 @@ public class movimientos {
          
         movimientos movimientos = new movimientos();
         
-        ArrayList <String> prueba = movimientos.moverTorre("p70");
+//        ArrayList <String> prueba = movimientos.moverTorre("p00");
+//        ArrayList <String> prueba = movimientos.moverAlfil("p36");
+//        ArrayList <String> prueba = movimientos.moverPeonBlanco("p00");
+//        ArrayList <String> prueba = movimientos.moverCaballo("p00");
+//        ArrayList <String> prueba = movimientos.moverDama("p00");
+//        ArrayList <String> prueba = movimientos.moverRey("p00");
         
-        for (int i = 0; i < prueba.size(); i++) {
-            System.out.print(prueba.get(i) + " ");
-        }
-
-
+//        for (int i = 0; i < prueba.size(); i++) {
+//            System.out.print(prueba.get(i) + " ");
+//        }
+//
+//
         System.out.println("------------------------------");
         
         tablero tablero = new tablero();
+        
         ArrayList <String> listar = tablero.getCoordenadasPiezasBlancas();
+        
+        ArrayList <String> prueba1 = movimientos.moverTorre(listar, "p70");
 
-        for (int i = 0; i < listar.size(); i++) {
-            System.out.println(listar.get(i));
+        for (int i = 0; i < prueba1.size(); i++) {
+            System.out.println(prueba1.get(i));
         } 
+
     }
 }

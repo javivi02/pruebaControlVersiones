@@ -79,9 +79,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenada), tablero.getCoordenadasPiezasBlancas());
+//        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenada), tablero.getCoordenadasPiezasBlancas());
         
-        temporal = movimientos.moverTorre(coordenada);
+        temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), coordenada);
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -94,7 +94,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenada), tablero.getCoordenadasPiezasBlancas());
+        //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenada), tablero.getCoordenadasPiezasBlancas());
+        
+        temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), coordenada);
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -107,7 +109,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenada), tablero.getCoordenadasPiezasBlancas());
+        //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenada), tablero.getCoordenadasPiezasBlancas());
+        
+        temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), coordenada);
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -384,7 +388,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
 //        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
-        ArrayList<String> temporal = movimientos.moverTorre(coordenadaInicio);
+        ArrayList<String> temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), coordenadaInicio);
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -401,7 +405,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverAlfil(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+//        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+
+        ArrayList<String> temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), coordenadaInicio);
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -418,8 +424,10 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverDama(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        //ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
+        ArrayList<String> temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), coordenadaInicio);    
+        
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
