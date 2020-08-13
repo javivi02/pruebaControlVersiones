@@ -15,15 +15,15 @@ public class masPruebas {
         ArrayList <String> dos = new ArrayList<>();
         ArrayList <String> total = new ArrayList<>();
 
-        uno.add("00");
+        uno.add("01");
         uno.add("22");
-        uno.add("21");
         uno.add("20");
+        uno.add("11");
         
         dos.add("20");
         dos.add("22");
         dos.add("11");
-        dos.add("01");
+//        dos.add("01");
         
         for (int i = 0; i < uno.size(); i++) {
             for (int j = 0; j < dos.size(); j++) {
@@ -85,11 +85,7 @@ public class masPruebas {
 //        for (int i = 0; i < total.size(); i++) {
 //            System.out.println(total.get(i));
 //        }
-//        
-//        
-//        
-//        
-//        
+//
 //        //Creamos un objeto HashSet
 //        HashSet hs = new HashSet();
 //

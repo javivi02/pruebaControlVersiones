@@ -287,10 +287,7 @@ public class movimientos {
         for (int i = 0; i < prueba.size(); i++) {
             System.out.print(prueba.get(i) + " ");
         }
-        
-//        movimientos.filtroPiezasBlancas("");
-//
-//        System.out.println(movimientos.moverPeonBlanco("p00"));
+
 
         System.out.println("------------------------------");
         
