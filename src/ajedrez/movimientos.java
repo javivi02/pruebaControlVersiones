@@ -55,34 +55,63 @@ public class movimientos {
         
         ArrayList <String> resultado = new ArrayList<>();
         
-        String temporal [] = coordenada.split("");
+        if(coordenada.equalsIgnoreCase("p60") || coordenada.equalsIgnoreCase("p61") || coordenada.equalsIgnoreCase("p62") 
+                || coordenada.equalsIgnoreCase("p63")|| coordenada.equalsIgnoreCase("p64") || coordenada.equalsIgnoreCase("p65") 
+                || coordenada.equalsIgnoreCase("p66")|| coordenada.equalsIgnoreCase("p67")){
+            
+            
+            String temporal [] = coordenada.split("");
         
-        int fila = Integer.parseInt(temporal[1]);
-        int columna = Integer.parseInt(temporal[2]);
-        
-//        if(fila > 0) resultado.add("p" + (fila - 1) + columna);
+            int fila = Integer.parseInt(temporal[1]);
+            int columna = Integer.parseInt(temporal[2]);
 
-        //posible movimiento arriba
-        if (fila - 1 >= 0) {
             resultado.add("p" + (fila - 1) + columna);
+            resultado.add("p" + (fila - 2) + columna);
+            
+        }else{
+            
+            String temporal2 [] = coordenada.split("");
+        
+            int fila2 = Integer.parseInt(temporal2[1]);
+            int columna2 = Integer.parseInt(temporal2[2]);
+
+            //posible movimiento arriba
+            if (fila2 - 1 >= 0) {
+                resultado.add("p" + (fila2 - 1) + columna2);
+            }   
         }
 
-        return resultado;
-        
+        return resultado;        
     }
     
     public ArrayList <String> moverPeonNegro (String coordenada){
         
         ArrayList <String> resultado = new ArrayList<>();
         
-        String temporal [] = coordenada.split("");
+        if(coordenada.equalsIgnoreCase("p10") || coordenada.equalsIgnoreCase("p11") || coordenada.equalsIgnoreCase("p12") 
+                || coordenada.equalsIgnoreCase("p13")|| coordenada.equalsIgnoreCase("p14") || coordenada.equalsIgnoreCase("p15") 
+                || coordenada.equalsIgnoreCase("p16")|| coordenada.equalsIgnoreCase("p17")){
+            
+            
+            String temporal [] = coordenada.split("");
         
-        int fila = Integer.parseInt(temporal[1]);
-        int columna = Integer.parseInt(temporal[2]);
+            int fila = Integer.parseInt(temporal[1]);
+            int columna = Integer.parseInt(temporal[2]);
 
-        //posible movimientos abajo
-        if (fila + 1 < tablero.COLUMNAS) {
             resultado.add("p" + (fila + 1) + columna);
+            resultado.add("p" + (fila + 2) + columna);
+            
+        }else{
+            
+            String temporal2 [] = coordenada.split("");
+        
+            int fila2 = Integer.parseInt(temporal2[1]);
+            int columna2 = Integer.parseInt(temporal2[2]);
+
+            //posible movimiento arriba
+            if (fila2 + 1 < tablero.COLUMNAS) {
+                resultado.add("p" + (fila2 + 1) + columna2);
+            }   
         }
 
         return resultado;

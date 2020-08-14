@@ -15,7 +15,6 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private movimientos movimientos = new movimientos();
     
     private String coordenadaIncio;
-    private String coordenadaDestino;
 
     private boolean clickJButton = true;
     private boolean mover = false;
@@ -23,6 +22,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
     public intergfazGrafica() {
         
         initComponents();
@@ -41,11 +41,14 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         switch (tipoFicha) {
             case "CB": marcaCasillasCaballo(coordenada);break;
-            case "PB": marcaCasillasPeon(coordenada); break;
+            case "PB": marcaCasillasPeonBlanco(coordenada); break;
             case "TB": marcaCasillasTorre(coordenada); break;
             case "AB": marcaCasillasAlfil(coordenada); break;              
             case "DB": marcaCasillasDama(coordenada); break;
             case "RB": marcaCasillasRey(coordenada); break;
+            
+            case "PN": marcaCasillasPeonNegro(coordenada); break;            
+            
             case "-": System.out.println("NADA") ;break;
         }
     }
@@ -54,7 +57,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
 
-        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverCaballo(coordenada), tablero.getCoordenadasPiezasBlancas());
+        temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenada), tablero.getCoordenadasPiezasBlancas());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -63,10 +66,10 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
     }
     
-    private void marcaCasillasPeon(String coordenada){
+    private void marcaCasillasPeonBlanco(String coordenada){
 
         ArrayList<String> temporal = new ArrayList<>();
-        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverPeonBlanco(coordenada), tablero.getCoordenadasPiezasBlancas());
+        temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenada), tablero.getCoordenadasPiezasBlancas());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -75,11 +78,23 @@ public class intergfazGrafica extends javax.swing.JFrame {
   
     }
     
+    private void marcaCasillasPeonNegro(String coordenada){
+
+        ArrayList<String> temporal = new ArrayList<>();
+        temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenada), tablero.getCoordenadasPiezasNegras());
+        
+        for (int i = 0; i < temporal.size(); i++) {
+
+            coordenadaJButton(temporal.get(i)).setBackground(Color.MAGENTA);
+        }
+  
+    }
+    
     private void marcaCasillasTorre(String coordenada){
         
         ArrayList<String> temporal = new ArrayList<>();
         
-//        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenada), tablero.getCoordenadasPiezasBlancas());
+        //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenada), tablero.getCoordenadasPiezasBlancas());
         
         temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), coordenada);
         
@@ -124,7 +139,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        temporal = filtroCoordenadasPiezasBlancas(movimientos.moverRey(coordenada), tablero.getCoordenadasPiezasBlancas());
+        temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenada), tablero.getCoordenadasPiezasBlancas());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -133,7 +148,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
     }
     
-    private ArrayList <String> filtroCoordenadasPiezasBlancas(ArrayList <String> movimientos, ArrayList <String> piezas){
+    private ArrayList <String> filtroCoordenadasPiezas(ArrayList <String> movimientos, ArrayList <String> piezas){
         
         ArrayList <String> resultado = new ArrayList<>();
 
@@ -152,6 +167,26 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         return resultado;
     }
+    
+//    private ArrayList <String> filtroCoordenadasPiezasNegras(ArrayList <String> movimientos, ArrayList <String> piezas){
+//        
+//        ArrayList <String> resultado = new ArrayList<>();
+//
+//        // Recorro ambos ArrayList, busco coincidencias y las elimino de movimientos. Agrego movimientos a resultado
+//        for (int i = 0; i < piezas.size(); i++) {
+//            for (int j = 0; j < movimientos.size(); j++) {
+//                if(piezas.get(i).equalsIgnoreCase(movimientos.get(j))){
+//                    movimientos.remove(j);
+//                }
+//            }
+//        }
+//        
+//        for (int i = 0; i < movimientos.size(); i++) {
+//            resultado.add(movimientos.get(i));
+//        }
+//        
+//        return resultado;
+//    }
     
     private void seleccionarJButton(){
         
@@ -339,18 +374,20 @@ public class intergfazGrafica extends javax.swing.JFrame {
             switch (tipoFicha) {
                 
                 case "CB": moverCaballo(coordenadaInicio, coordenadaFinal); break;
-                case "PB": moverPeon(coordenadaInicio, coordenadaFinal); break;
+                case "PB": moverPeonBlanco(coordenadaInicio, coordenadaFinal); break;
                 case "TB": moverTorre(coordenadaInicio, coordenadaFinal); break;
                 case "AB": moverAlfil(coordenadaInicio, coordenadaFinal); break;             
                 case "DB": moverDama(coordenadaInicio, coordenadaFinal); break;
-                case "RB": moverRey(coordenadaInicio, coordenadaFinal); break;               
+                case "RB": moverRey(coordenadaInicio, coordenadaFinal); break;
+                
+                case "PN": moverPeonNegro(coordenadaInicio, coordenadaFinal); break;
             }
         }
     }
     
     private void moverCaballo(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -365,9 +402,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
         }
     }
     
-    private void moverPeon(String coordenadaInicio, String coordenadaFinal){
+    private void moverPeonBlanco(String coordenadaInicio, String coordenadaFinal){
         
-        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverPeonBlanco(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -380,8 +417,23 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
             }
         }
+    }
+    
+    private void moverPeonNegro(String coordenadaInicio, String coordenadaFinal){
+        
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenadaInicio), tablero.getCoordenadasPiezasNegras());
 
+        for (int i = 0; i < temporal.size(); i++) {
+            if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
+                coordenadaJButton(coordenadaIncio).setIcon(null);
+                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png")));
+                tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
+                tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+                tablero.mostrarTablero();
+
+            }
+        }
     }
     
     private void moverTorre(String coordenadaInicio, String coordenadaFinal) {
@@ -443,7 +495,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverRey(String coordenadaInicio, String coordenadaFinal) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverRey(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -540,6 +592,24 @@ public class intergfazGrafica extends javax.swing.JFrame {
         p75 = new javax.swing.JButton();
         p76 = new javax.swing.JButton();
         p77 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -635,6 +705,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p12);
 
         p13.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p13ActionPerformed(evt);
@@ -931,6 +1002,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p57);
 
         p60.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p60.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p60ActionPerformed(evt);
@@ -939,6 +1011,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p60);
 
         p61.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p61.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p61ActionPerformed(evt);
@@ -947,6 +1020,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p61);
 
         p62.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p62.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p62ActionPerformed(evt);
@@ -955,6 +1029,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p62);
 
         p63.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p63.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p63ActionPerformed(evt);
@@ -963,6 +1038,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p63);
 
         p64.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p64.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p64.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p64ActionPerformed(evt);
@@ -971,6 +1047,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p64);
 
         p65.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p65.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p65ActionPerformed(evt);
@@ -979,6 +1056,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p65);
 
         p66.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p66.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p66ActionPerformed(evt);
@@ -987,6 +1065,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p66);
 
         p67.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p67.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
         p67.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p67ActionPerformed(evt);
@@ -1022,7 +1101,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p72);
 
         p73.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        p73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png"))); // NOI18N
+        p73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png"))); // NOI18N
         p73.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p73ActionPerformed(evt);
@@ -1031,7 +1110,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p73);
 
         p74.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        p74.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png"))); // NOI18N
+        p74.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png"))); // NOI18N
         p74.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p74ActionPerformed(evt);
@@ -1066,21 +1145,146 @@ public class intergfazGrafica extends javax.swing.JFrame {
         });
         jPanel1.add(p77);
 
+        jPanel3.setLayout(new java.awt.GridLayout(8, 0));
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 8));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("A");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("B");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("C");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("D");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("E");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("F");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("G");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("H");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setText("1");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setText("2");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setText("3");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("4");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setText("5");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setText("6");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("7");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setText("8");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -1507,7 +1711,25 @@ public class intergfazGrafica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JButton p00;
     private javax.swing.JButton p01;
     private javax.swing.JButton p02;

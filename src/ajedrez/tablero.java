@@ -93,13 +93,10 @@ public class tablero {
     public static final int FILAS = 8;
     public static final int COLUMNAS = 8;
     
-    private movimientos movimientos;
-    
     public tablero(){
         
         inicioPiezas();
-        rellenarCoordenadasPiezasBlancas();
-//        movimientos = new movimientos(this);
+        rellenarCoordenadasPiezas();
         
     }
     
@@ -117,7 +114,7 @@ public class tablero {
         piezasTablero.put(cooredanda10, "-");
         piezasTablero.put(cooredanda11, "-");
         piezasTablero.put(cooredanda12, "-");
-        piezasTablero.put(cooredanda13, "-");
+        piezasTablero.put(cooredanda13, piezas.peonNegro);
         piezasTablero.put(cooredanda14, "-");
         piezasTablero.put(cooredanda15, "-");
         piezasTablero.put(cooredanda16, "-");
@@ -159,20 +156,20 @@ public class tablero {
         piezasTablero.put(cooredanda56, "-");
         piezasTablero.put(cooredanda57, "-");
         
-        piezasTablero.put(cooredanda60, "-");
-        piezasTablero.put(cooredanda61, "-");
-        piezasTablero.put(cooredanda62, "-");
-        piezasTablero.put(cooredanda63, "-");
-        piezasTablero.put(cooredanda64, "-");
-        piezasTablero.put(cooredanda65, "-");
-        piezasTablero.put(cooredanda66, "-");
-        piezasTablero.put(cooredanda67, "-");
+        piezasTablero.put(cooredanda60, piezas.peonBlanco);
+        piezasTablero.put(cooredanda61, piezas.peonBlanco);
+        piezasTablero.put(cooredanda62, piezas.peonBlanco);
+        piezasTablero.put(cooredanda63, piezas.peonBlanco);
+        piezasTablero.put(cooredanda64, piezas.peonBlanco);
+        piezasTablero.put(cooredanda65, piezas.peonBlanco);
+        piezasTablero.put(cooredanda66, piezas.peonBlanco);
+        piezasTablero.put(cooredanda67, piezas.peonBlanco);
         
         piezasTablero.put(cooredanda70, piezas.torreBlanca);
         piezasTablero.put(cooredanda71, piezas.caballoBlanco);
         piezasTablero.put(cooredanda72, piezas.alfilBlanco);
-        piezasTablero.put(cooredanda73, piezas.reyBlanco);
-        piezasTablero.put(cooredanda74, piezas.damaBlanca);
+        piezasTablero.put(cooredanda73, piezas.damaBlanca);
+        piezasTablero.put(cooredanda74, piezas.reyBlanco);
         piezasTablero.put(cooredanda75, piezas.alfilBlanco);
         piezasTablero.put(cooredanda76, piezas.caballoBlanco);
         piezasTablero.put(cooredanda77, piezas.torreBlanca);
@@ -216,14 +213,15 @@ public class tablero {
         System.out.println("--------------------");
     }
     
-    public void rellenarCoordenadasPiezasBlancas(){
+    public void rellenarCoordenadasPiezas(){
         
         Iterator recorre = piezasTablero.keySet().iterator();
         
         while(recorre.hasNext()){
             
             String clave = (String) recorre.next();
-            if(!piezasTablero.get(clave).equalsIgnoreCase("-"))coordenadasPiezasBlancas.add(clave);
+            if(!piezasTablero.get(clave).equalsIgnoreCase("-") && piezasTablero.get(clave).contains("B"))coordenadasPiezasBlancas.add(clave);
+            if(!piezasTablero.get(clave).equalsIgnoreCase("-") && piezasTablero.get(clave).contains("N"))coordenadasPiezasNegras.add(clave);
         }
     }
     
@@ -236,6 +234,17 @@ public class tablero {
     
     public ArrayList<String> getCoordenadasPiezasBlancas() {
         return coordenadasPiezasBlancas;
+    }
+    
+    public void actualizarCoordenadasPiezasNegras(String coordenadaInicio, String coordenadaFinal){
+        
+        coordenadasPiezasNegras.remove(coordenadaInicio);
+        coordenadasPiezasNegras.add(coordenadaFinal);
+        
+    }
+    
+    public ArrayList<String> getCoordenadasPiezasNegras() {
+        return coordenadasPiezasNegras;
     }
     
     
