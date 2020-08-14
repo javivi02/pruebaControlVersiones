@@ -102,7 +102,7 @@ public class tablero {
     
     private void inicioPiezas(){
         
-        piezasTablero.put(cooredanda00, "-");
+        piezasTablero.put(cooredanda00, piezas.torreNegra);
         piezasTablero.put(cooredanda01, "-");
         piezasTablero.put(cooredanda02, "-");
         piezasTablero.put(cooredanda03, "-");
