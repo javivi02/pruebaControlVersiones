@@ -1,13 +1,13 @@
-package ajedrez;
+package miscelanea;
 
 /**
  * @author Javier García Arranz
  */
-public class torre extends pieza{
+public class reina extends pieza{
 
     @Override
     public String movimiento() {
-        return "Me muevo como una Torre";
+        return "Me muevo como una reina";
     }
 
 }

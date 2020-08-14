@@ -1,4 +1,4 @@
-package ajedrez;
+package miscelanea;
 
 import java.util.ArrayList;
 

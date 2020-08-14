@@ -51,72 +51,86 @@ public class movimientos {
         return resultado;
     }
     
-    public ArrayList <String> moverPeonBlanco (String coordenada){
+    public ArrayList <String> moverPeonBlanco (String coordenada, ArrayList <String> piezasNegras){
         
         ArrayList <String> resultado = new ArrayList<>();
+        
+        String temporal [] = coordenada.split("");
+        int fila = Integer.parseInt(temporal[1]);
+        int columna = Integer.parseInt(temporal[2]);
         
         if(coordenada.equalsIgnoreCase("p60") || coordenada.equalsIgnoreCase("p61") || coordenada.equalsIgnoreCase("p62") 
                 || coordenada.equalsIgnoreCase("p63")|| coordenada.equalsIgnoreCase("p64") || coordenada.equalsIgnoreCase("p65") 
                 || coordenada.equalsIgnoreCase("p66")|| coordenada.equalsIgnoreCase("p67")){
-            
-            
-            String temporal [] = coordenada.split("");
-        
-            int fila = Integer.parseInt(temporal[1]);
-            int columna = Integer.parseInt(temporal[2]);
 
             resultado.add("p" + (fila - 1) + columna);
             resultado.add("p" + (fila - 2) + columna);
             
         }else{
-            
-            String temporal2 [] = coordenada.split("");
-        
-            int fila2 = Integer.parseInt(temporal2[1]);
-            int columna2 = Integer.parseInt(temporal2[2]);
-
-            //posible movimiento arriba
-            if (fila2 - 1 >= 0) {
-                resultado.add("p" + (fila2 - 1) + columna2);
+  
+            //posible movimiento arriba, compruebo tambien si hay una pieza en la siguiente casilla del peon
+            if (fila - 1 >= 0 && !peonCaptura(piezasNegras, "p" + (fila - 1) + columna)) {
+                resultado.add("p" + (fila - 1) + columna);
             }   
         }
-
+        
+        if(peonCaptura(piezasNegras, "p" + (fila - 1) + (columna - 1))) resultado.add("p" + (fila - 1) + (columna - 1));
+        if(peonCaptura(piezasNegras, "p" + (fila - 1) + (columna + 1))) resultado.add("p" + (fila - 1) + (columna + 1));
+       
         return resultado;        
     }
     
-    public ArrayList <String> moverPeonNegro (String coordenada){
+    public ArrayList <String> moverPeonNegro (String coordenada, ArrayList <String> piezasBlancas){
         
         ArrayList <String> resultado = new ArrayList<>();
+
+        String temporal [] = coordenada.split("");
+        int fila = Integer.parseInt(temporal[1]);
+        int columna = Integer.parseInt(temporal[2]);
         
         if(coordenada.equalsIgnoreCase("p10") || coordenada.equalsIgnoreCase("p11") || coordenada.equalsIgnoreCase("p12") 
                 || coordenada.equalsIgnoreCase("p13")|| coordenada.equalsIgnoreCase("p14") || coordenada.equalsIgnoreCase("p15") 
                 || coordenada.equalsIgnoreCase("p16")|| coordenada.equalsIgnoreCase("p17")){
-            
-            
-            String temporal [] = coordenada.split("");
-        
-            int fila = Integer.parseInt(temporal[1]);
-            int columna = Integer.parseInt(temporal[2]);
 
             resultado.add("p" + (fila + 1) + columna);
             resultado.add("p" + (fila + 2) + columna);
             
         }else{
-            
-            String temporal2 [] = coordenada.split("");
-        
-            int fila2 = Integer.parseInt(temporal2[1]);
-            int columna2 = Integer.parseInt(temporal2[2]);
 
             //posible movimiento arriba
-            if (fila2 + 1 < tablero.COLUMNAS) {
-                resultado.add("p" + (fila2 + 1) + columna2);
+            if (fila + 1 < tablero.COLUMNAS && !peonCaptura(piezasBlancas, "p" + (fila + 1) + columna)) {
+                resultado.add("p" + (fila + 1) + columna);
             }   
         }
+        
+        if(peonCaptura(piezasBlancas, "p" + (fila + 1) + (columna - 1))) resultado.add("p" + (fila + 1) + (columna - 1));
+        if(peonCaptura(piezasBlancas, "p" + (fila + 1) + (columna + 1))) resultado.add("p" + (fila + 1) + (columna + 1));
 
         return resultado;
         
     }
+    
+     private boolean peonCaptura(ArrayList <String> piezasNegras, String coordenada){
+        
+        ArrayList <String> resultado = piezasNegras;
+        
+        for (int i = 0; i < resultado.size(); i++) {
+            if(resultado.get(i).equalsIgnoreCase(coordenada)) return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * El metodo devolvera el listado coordenadas donde puedo mover la ficha pasada.
+     * Tiene en cuenta las posicion de sus fichas y de las fichas negras para dar ese resultado.
+     * 
+     * @param piezasBlancas Coordenadas con las piezas blancas del tablero, en el momento actual
+     * @param piezasNegras Coordenadas con las piezas negras del tablero, en el momento actual
+     * @param coordenada Coordenada de la picha que quiero mover
+     * @param tipoFicha Color de la ficha, si es blanca o negra
+     * @return Listado de coordenadas donde puedo mover la ficha
+     */
     
     public ArrayList <String> moverTorre (ArrayList <String> piezasBlancas, ArrayList <String> piezasNegras, String coordenada, String tipoFicha){
         

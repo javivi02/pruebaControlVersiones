@@ -1,4 +1,4 @@
-package ajedrez;
+package miscelanea;
 
 /**
  * @author Javier García Arranz

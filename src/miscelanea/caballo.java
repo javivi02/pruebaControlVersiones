@@ -1,4 +1,6 @@
-package ajedrez;
+package miscelanea;
+
+import ajedrez.tablero;
 
 /**
  * @author Javier García Arranz

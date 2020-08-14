@@ -74,7 +74,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private void marcaCasillasPeonBlanco(String coordenada){
 
         ArrayList<String> temporal = new ArrayList<>();
-        temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenada), tablero.getCoordenadasPiezasBlancas());
+        temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenada, tablero.getCoordenadasPiezasNegras()), tablero.getCoordenadasPiezasBlancas());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -86,7 +86,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private void marcaCasillasPeonNegro(String coordenada){
 
         ArrayList<String> temporal = new ArrayList<>();
-        temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenada), tablero.getCoordenadasPiezasNegras());
+        temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenada, tablero.getCoordenadasPiezasBlancas()), tablero.getCoordenadasPiezasNegras());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -152,6 +152,15 @@ public class intergfazGrafica extends javax.swing.JFrame {
         }
 
     }
+    
+    /**
+     * Filtro los movimientos posibles en funcion de la ocupacion de las casillas del mismo color.
+     * Solo para peon y caballo. Habria que llevarlo a la clase movimientos
+     * 
+     * @param movimientos Posibles de movimientos de la pieza a consultar
+     * @param piezas Ocupacion de las piezas del mismo color para que haga la comparacion
+     * @return 
+     */
     
     private ArrayList <String> filtroCoordenadasPiezas(ArrayList <String> movimientos, ArrayList <String> piezas){
         
@@ -390,7 +399,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverPeonBlanco(String coordenadaInicio, String coordenadaFinal){
         
-        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonBlanco(coordenadaInicio, tablero.getCoordenadasPiezasNegras()), tablero.getCoordenadasPiezasBlancas());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -407,7 +416,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverPeonNegro(String coordenadaInicio, String coordenadaFinal){
         
-        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenadaInicio), tablero.getCoordenadasPiezasNegras());
+        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverPeonNegro(coordenadaInicio, tablero.getCoordenadasPiezasBlancas()), tablero.getCoordenadasPiezasNegras());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -432,7 +441,6 @@ public class intergfazGrafica extends javax.swing.JFrame {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
                 coordenadaJButton(coordenadaIncio).setIcon(null);
-                
                 if(tipoFicha.contains("B")){
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
