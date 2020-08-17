@@ -25,20 +25,21 @@ public class comprueba {
         while(recorre.hasNext()){
             
             String clave = (String) recorre.next();
-//            System.out.println("Clave : " + clave + " / Valor : " + almacen.get(clave));
 
             if(clave.equalsIgnoreCase("p00") || clave.equalsIgnoreCase("p01") || clave.equalsIgnoreCase("p02")
                     || clave.equalsIgnoreCase("p03") || clave.equalsIgnoreCase("p04")
                     || clave.equalsIgnoreCase("p05") || clave.equalsIgnoreCase("p06")
                     || clave.equalsIgnoreCase("p07")){
                 
-                if(temporal.get(clave).equalsIgnoreCase(piezas.peonBlanco)) System.out.println("REINA");
+                if(temporal.get(clave).equalsIgnoreCase(piezas.peonBlanco)){
+                    
+                    tablero.actualizarTableroReina(clave);
+                    interfazGrafica.actualizarIconoPeonReina(clave);
+                    System.out.println("REINA");
+                }
                 
             }   
         }
    }
    
-   public void prueba(){
-       System.out.println("FUNCIONA");
-   }
 }

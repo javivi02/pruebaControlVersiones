@@ -158,6 +158,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
     }
     
+    
+    public void actualizarIconoPeonReina(String coordenada){
+        
+        coordenadaJButton(coordenada).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
+    }
+    
     /**
      * Filtro los movimientos posibles en funcion de la ocupacion de las casillas del mismo color.
      * Solo para peon y caballo. Habria que llevarlo a la clase movimientos

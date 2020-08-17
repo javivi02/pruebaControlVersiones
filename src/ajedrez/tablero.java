@@ -196,6 +196,12 @@ public class tablero {
         
     }
     
+    public void actualizarTableroReina(String clave){
+        
+        piezasTablero.put(clave, piezas.damaBlanca);
+        
+    }
+    
     public void mostrarTablero(){
         
         //Muestra el tablero, hashMap piezasTablero, pero lo ordenado por la clave
