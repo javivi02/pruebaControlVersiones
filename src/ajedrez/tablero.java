@@ -92,6 +92,7 @@ public class tablero {
     
     public static final int FILAS = 8;
     public static final int COLUMNAS = 8;
+
     
     public tablero(){
         
@@ -245,6 +246,10 @@ public class tablero {
     
     public ArrayList<String> getCoordenadasPiezasNegras() {
         return coordenadasPiezasNegras;
+    }
+
+    public HashMap <String, String> piezasTablero() {
+        return piezasTablero;
     }
     
     

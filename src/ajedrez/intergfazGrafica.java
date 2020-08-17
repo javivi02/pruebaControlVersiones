@@ -11,8 +11,9 @@ import javax.swing.JOptionPane;
  */
 public class intergfazGrafica extends javax.swing.JFrame {
 
-    private tablero tablero = new tablero();
-    private movimientos movimientos = new movimientos();
+    private tablero tablero;
+    private movimientos movimientos;
+    private comprueba comprueba;
     
     private String coordenadaIncio;
 
@@ -27,6 +28,10 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
         initComponents();
         
+        tablero = new tablero();
+        movimientos = new movimientos();
+        comprueba = new comprueba(tablero, this, movimientos);
+        
         this.setLocationRelativeTo(null);
     }
     
@@ -40,19 +45,19 @@ public class intergfazGrafica extends javax.swing.JFrame {
         String tipoFicha = piezaCoordenadaTablero(coordenada);
         
         switch (tipoFicha) {
-            case "CB": marcaCasillasCaballo(coordenada);break;
-            case "PB": marcaCasillasPeonBlanco(coordenada); break;
-            case "TB": marcaCasillasTorre(coordenada, tipoFicha); break;
-            case "AB": marcaCasillasAlfil(coordenada); break;              
-            case "DB": marcaCasillasDama(coordenada); break;
-            case "RB": marcaCasillasRey(coordenada); break;
+            case piezas.caballoBlanco: marcaCasillasCaballo(coordenada);break;
+            case piezas.peonBlanco: marcaCasillasPeonBlanco(coordenada); break;
+            case piezas.torreBlanca: marcaCasillasTorre(coordenada, tipoFicha); break;
+            case piezas.alfilBlanco: marcaCasillasAlfil(coordenada); break;              
+            case piezas.damaBlanca: marcaCasillasDama(coordenada); break;
+            case piezas.reyBlanco: marcaCasillasRey(coordenada); break;
             
-            case "PN": marcaCasillasPeonNegro(coordenada); break;
-            case "TN": marcaCasillasTorre(coordenada, tipoFicha); break;
-            case "AN": marcaCasillasAlfil(coordenada); break;              
-            case "DN": marcaCasillasDama(coordenada); break;
-            case "RN": marcaCasillasRey(coordenada); break;
-            case "CN": marcaCasillasCaballo(coordenada);break;
+            case piezas.peonNegro: marcaCasillasPeonNegro(coordenada); break;
+            case piezas.torreNegra: marcaCasillasTorre(coordenada, tipoFicha); break;
+            case piezas.alfilNegro: marcaCasillasAlfil(coordenada); break;              
+            case piezas.damaNegra: marcaCasillasDama(coordenada); break;
+            case piezas.reyNegro: marcaCasillasRey(coordenada); break;
+            case piezas.caballoNegro: marcaCasillasCaballo(coordenada);break;
             
             case "-": System.out.println("NADA") ;break;
         }
@@ -367,15 +372,15 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
             switch (tipoFicha) {
                 
-                case "CB": moverCaballo(coordenadaInicio, coordenadaFinal); break;
-                case "PB": moverPeonBlanco(coordenadaInicio, coordenadaFinal); break;
-                case "TB": moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
-                case "AB": moverAlfil(coordenadaInicio, coordenadaFinal); break;             
-                case "DB": moverDama(coordenadaInicio, coordenadaFinal); break;
-                case "RB": moverRey(coordenadaInicio, coordenadaFinal); break;
+                case piezas.caballoBlanco: moverCaballo(coordenadaInicio, coordenadaFinal); break;
+                case piezas.peonBlanco: moverPeonBlanco(coordenadaInicio, coordenadaFinal); break;
+                case piezas.torreBlanca: moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
+                case piezas.alfilBlanco: moverAlfil(coordenadaInicio, coordenadaFinal); break;             
+                case piezas.damaBlanca: moverDama(coordenadaInicio, coordenadaFinal); break;
+                case piezas.reyBlanco: moverRey(coordenadaInicio, coordenadaFinal); break;
                 
-                case "PN": moverPeonNegro(coordenadaInicio, coordenadaFinal); break;
-                case "TN": moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
+                case piezas.peonNegro: moverPeonNegro(coordenadaInicio, coordenadaFinal); break;
+                case piezas.torreNegra: moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
             }
         }
     }
@@ -409,6 +414,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
                 tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                 tablero.mostrarTablero();
+                comprueba.peonDamaBlanco();
 
             }
         }

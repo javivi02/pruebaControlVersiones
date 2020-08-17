@@ -63,8 +63,17 @@ public class movimientos {
                 || coordenada.equalsIgnoreCase("p63")|| coordenada.equalsIgnoreCase("p64") || coordenada.equalsIgnoreCase("p65") 
                 || coordenada.equalsIgnoreCase("p66")|| coordenada.equalsIgnoreCase("p67")){
 
-            resultado.add("p" + (fila - 1) + columna);
-            resultado.add("p" + (fila - 2) + columna);
+//            resultado.add("p" + (fila - 1) + columna);
+//            resultado.add("p" + (fila - 2) + columna);
+
+            if (fila - 1 >= 0 && !peonCaptura(piezasNegras, "p" + (fila - 1) + columna)) {
+                resultado.add("p" + (fila - 1) + columna);
+                
+            }
+            
+            if (fila - 2 >= 0 && !peonCaptura(piezasNegras, "p" + (fila - 2) + columna)) {
+                    resultado.add("p" + (fila - 2) + columna);
+            }
             
         }else{
   
@@ -92,8 +101,17 @@ public class movimientos {
                 || coordenada.equalsIgnoreCase("p13")|| coordenada.equalsIgnoreCase("p14") || coordenada.equalsIgnoreCase("p15") 
                 || coordenada.equalsIgnoreCase("p16")|| coordenada.equalsIgnoreCase("p17")){
 
-            resultado.add("p" + (fila + 1) + columna);
-            resultado.add("p" + (fila + 2) + columna);
+//            resultado.add("p" + (fila + 1) + columna);
+//            resultado.add("p" + (fila + 2) + columna);
+
+            if (fila + 1 >= 0 && !peonCaptura(piezasBlancas, "p" + (fila + 1) + columna)) {
+                resultado.add("p" + (fila + 1) + columna);
+                
+            }
+            
+            if (fila + 2 >= 0 && !peonCaptura(piezasBlancas, "p" + (fila + 2) + columna)) {
+                    resultado.add("p" + (fila + 2) + columna);
+            }
             
         }else{
 
@@ -400,7 +418,7 @@ public class movimientos {
     /**
      * Nos indica si la coordenada generada por el movimiento coincide con alguna coordenada del ArrayList que le paso
      * 
-     * @param piezas ArrayList de piezas
+     * @param piezas ArrayList de piezas blancas o negras
      * @param valorCoordenada Valor de la coordenada a analizar
      * @return 
      */
