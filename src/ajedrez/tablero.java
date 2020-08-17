@@ -196,7 +196,7 @@ public class tablero {
         
     }
     
-    public void actualizarTableroReina(String clave){
+    public void actualizarTableroReinaBlanca(String clave){
         
         piezasTablero.put(clave, piezas.damaBlanca);
         

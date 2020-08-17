@@ -9,11 +9,6 @@ public class movimientos {
     
     private tablero tablero;
     
-//    public movimientos(){
-//        
-//        tablero = new tablero();
-//    }
-    
     public ArrayList <String> moverCaballo(String coordenada){
         
         ArrayList <String> resultado = new ArrayList<>();

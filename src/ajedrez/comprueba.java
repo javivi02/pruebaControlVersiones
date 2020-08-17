@@ -1,5 +1,6 @@
 package ajedrez;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -16,7 +17,7 @@ public class comprueba {
         this.movimientos = movimientos;
     }
     
-   public void peonDamaBlanco(){
+    public void peonDamaBlanco(){
        
        HashMap <String, String> temporal = tablero.piezasTablero();
        
@@ -33,13 +34,53 @@ public class comprueba {
                 
                 if(temporal.get(clave).equalsIgnoreCase(piezas.peonBlanco)){
                     
-                    tablero.actualizarTableroReina(clave);
+                    tablero.actualizarTableroReinaBlanca(clave);
                     interfazGrafica.actualizarIconoPeonReina(clave);
                     System.out.println("REINA");
                 }
-                
             }   
         }
-   }
+    }
+   
+    public boolean isJaqueBlanca(String coordenadaFinal){
+        
+        String coordenadaRey = posicionRey();
+        
+        ArrayList<String> temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, piezas.torreNegra);
+        
+        for (int i = 0; i < temporal.size(); i++) {
+            if(temporal.get(i).equalsIgnoreCase(coordenadaRey)) return true;
+            
+        }
+        return false;
+    }
+    
+    private String posicionRey(){
+        
+        HashMap <String, String> temporal = tablero.piezasTablero();
+        String resultado = "";
+        
+        Iterator recorre = temporal.keySet().iterator();
+        
+        while(recorre.hasNext()){
+            
+            String clave = (String) recorre.next();
+
+            if(temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)){
+                resultado = clave;
+            }
+
+        }
+        
+        return resultado;
+    }
+    
+    public static void main(String[] args) {
+        
+        
+        
+        
+    }
+    
    
 }

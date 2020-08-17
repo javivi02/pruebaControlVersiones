@@ -456,10 +456,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 if(tipoFicha.contains("B")){
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
+                    
                 }
                 else{
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+                    if(comprueba.isJaqueBlanca(coordenadaFinal)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
                 }
                 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
