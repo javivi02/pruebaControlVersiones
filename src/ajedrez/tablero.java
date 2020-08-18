@@ -104,13 +104,13 @@ public class tablero {
     private void inicioPiezas(){
         
         piezasTablero.put(cooredanda00, piezas.torreNegra);
-        piezasTablero.put(cooredanda01, "-");
-        piezasTablero.put(cooredanda02, "-");
-        piezasTablero.put(cooredanda03, "-");
+        piezasTablero.put(cooredanda01, piezas.caballoNegro);
+        piezasTablero.put(cooredanda02, piezas.alfilNegro);
+        piezasTablero.put(cooredanda03, piezas.damaNegra);
         piezasTablero.put(cooredanda04, "-");
         piezasTablero.put(cooredanda05, "-");
         piezasTablero.put(cooredanda06, "-");
-        piezasTablero.put(cooredanda07, "-");
+        piezasTablero.put(cooredanda07, piezas.reyNegro);
         
         piezasTablero.put(cooredanda10, "-");
         piezasTablero.put(cooredanda11, "-");

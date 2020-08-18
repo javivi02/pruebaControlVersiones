@@ -407,6 +407,7 @@ public class movimientos {
     
     /**
      * Nos indica si la coordenada generada por el movimiento coincide con alguna coordenada del ArrayList que le paso
+     * Lo utilizado para parar el conteo en algua direccion al encontrar una ficha del mismo color o distinta
      * 
      * @param piezas ArrayList de piezas blancas o negras
      * @param valorCoordenada Valor de la coordenada a analizar

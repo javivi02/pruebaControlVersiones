@@ -42,20 +42,23 @@ public class comprueba {
         }
     }
    
-    public boolean isJaqueBlanca(String coordenadaFinal){
+    public boolean isJaqueBlanca(ArrayList <String> movimientos, String tipoFicha){
         
-        String coordenadaRey = posicionRey();
+        String coordenadaRey = "";
         
-        ArrayList<String> temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, piezas.torreNegra);
+        if(tipoFicha.contains("B"))coordenadaRey = posicionRey(piezas.reyNegro);
+        else coordenadaRey = posicionRey(piezas.reyBlanco);
         
-        for (int i = 0; i < temporal.size(); i++) {
-            if(temporal.get(i).equalsIgnoreCase(coordenadaRey)) return true;
+        //ArrayList<String> temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, piezas.torreNegra);
+        
+        for (int i = 0; i < movimientos.size(); i++) {
+            if(movimientos.get(i).equalsIgnoreCase(coordenadaRey)) return true;
             
         }
         return false;
     }
     
-    private String posicionRey(){
+    private String posicionRey(String tipoRey){
         
         HashMap <String, String> temporal = tablero.piezasTablero();
         String resultado = "";
@@ -66,7 +69,7 @@ public class comprueba {
             
             String clave = (String) recorre.next();
 
-            if(temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)){
+            if(temporal.get(clave).equalsIgnoreCase(tipoRey)){
                 resultado = clave;
             }
 
