@@ -206,9 +206,22 @@ public class movimientos {
         return resultado;
     }
     
-    public ArrayList <String> moverAlfil (ArrayList <String> piezasBlancas, ArrayList <String> piezasNegras, String coordenada){
+    public ArrayList <String> moverAlfil (ArrayList <String> piezasBlancas, ArrayList <String> piezasNegras, String coordenada, String tipoFicha){
 
         ArrayList <String> resultado = new ArrayList<>();
+        
+        ArrayList <String> variable, variable2;
+        
+        if(tipoFicha.contains("B")){
+            
+            variable = piezasBlancas;
+            variable2 = piezasNegras;
+            
+        }else{
+            
+            variable = piezasNegras;
+            variable2 = piezasBlancas;
+        }
         
         String temporal [] = coordenada.split("");
         
@@ -217,8 +230,8 @@ public class movimientos {
 
         //posibles movimientos derecha abajo
         for (int i = 1; fila + i < tablero.FILAS && columna - i >= 0; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila + i) + (columna - i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila + i) + (columna - i))){
+            if(filtroPiezas(variable, "p" + (fila + i) + (columna - i))) break;
+            if(filtroPiezas(variable2, "p" + (fila + i) + (columna - i))){
                 resultado.add("p" + (fila + i) + (columna - i));
                 break;
             }
@@ -227,8 +240,8 @@ public class movimientos {
         
         //posibles movimientos izquierda abajo
         for (int i = 1; fila + i < tablero.FILAS && columna + i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila + i) + (columna + i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila + i) + (columna + i))){
+            if(filtroPiezas(variable, "p" + (fila + i) + (columna + i))) break;
+            if(filtroPiezas(variable2, "p" + (fila + i) + (columna + i))){
                 resultado.add("p" + (fila + i) + (columna + i));
                 break;
             }
@@ -237,8 +250,8 @@ public class movimientos {
         
         //posibles movimientos derecha arriba
         for (int i = 1; fila - i >= 0 && columna + i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila - i) + (columna + i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila - i) + (columna + i))){
+            if(filtroPiezas(variable, "p" + (fila - i) + (columna + i))) break;
+            if(filtroPiezas(variable2, "p" + (fila - i) + (columna + i))){
                 resultado.add("p" + (fila - i) + (columna + i));
                 break;
             }
@@ -247,8 +260,8 @@ public class movimientos {
         
         //posibles movimientos izquierda arriba
         for (int i = 1; fila - i >= 0 && columna - i >= 0; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila - i) + (columna - i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila - i) + (columna - i))){
+            if(filtroPiezas(variable, "p" + (fila - i) + (columna - i))) break;
+            if(filtroPiezas(variable2, "p" + (fila - i) + (columna - i))){
                 resultado.add("p" + (fila - i) + (columna - i));
                 break;
             }
@@ -259,9 +272,22 @@ public class movimientos {
         
     }
     
-    public ArrayList <String> moverDama (ArrayList <String> piezasBlancas, ArrayList <String> piezasNegras, String coordenada){
+    public ArrayList <String> moverDama (ArrayList <String> piezasBlancas, ArrayList <String> piezasNegras, String coordenada, String tipoFicha){
 
         ArrayList <String> resultado = new ArrayList<>();
+        
+        ArrayList <String> variable, variable2;
+        
+        if(tipoFicha.contains("B")){
+            
+            variable = piezasBlancas;
+            variable2 = piezasNegras;
+            
+        }else{
+            
+            variable = piezasNegras;
+            variable2 = piezasBlancas;
+        }
         
         String temporal [] = coordenada.split("");
         
@@ -270,8 +296,8 @@ public class movimientos {
 
         //posibles movimientos derecha abajo
         for (int i = 1; fila + i < tablero.FILAS && columna - i >= 0; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila + i) + (columna - i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila + i) + (columna - i))){
+            if(filtroPiezas(variable, "p" + (fila + i) + (columna - i))) break;
+            if(filtroPiezas(variable2, "p" + (fila + i) + (columna - i))){
                 resultado.add("p" + (fila + i) + (columna - i));
                 break;
             }
@@ -280,8 +306,8 @@ public class movimientos {
         
         //posibles movimientos izquierda abajo
         for (int i = 1; fila + i < tablero.FILAS && columna + i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila + i) + (columna + i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila + i) + (columna + i))){
+            if(filtroPiezas(variable, "p" + (fila + i) + (columna + i))) break;
+            if(filtroPiezas(variable2, "p" + (fila + i) + (columna + i))){
                 resultado.add("p" + (fila + i) + (columna + i));
                 break;
             }
@@ -290,8 +316,8 @@ public class movimientos {
         
         //posibles movimientos derecha arriba
         for (int i = 1; fila - i >= 0 && columna + i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila - i) + (columna + i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila - i) + (columna + i))){
+            if(filtroPiezas(variable, "p" + (fila - i) + (columna + i))) break;
+            if(filtroPiezas(variable2, "p" + (fila - i) + (columna + i))){
                 resultado.add("p" + (fila - i) + (columna + i));
                 break;
             }
@@ -300,8 +326,8 @@ public class movimientos {
         
         //posibles movimientos izquierda arriba
         for (int i = 1; fila - i >= 0 && columna - i >= 0; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + (fila - i) + (columna - i))) break;
-            if(filtroPiezas(piezasNegras, "p" + (fila - i) + (columna - i))){
+            if(filtroPiezas(variable, "p" + (fila - i) + (columna - i))) break;
+            if(filtroPiezas(variable2, "p" + (fila - i) + (columna - i))){
                 resultado.add("p" + (fila - i) + (columna - i));
                 break;
             }
@@ -310,8 +336,8 @@ public class movimientos {
         
         //posibles movimientos izquierda
         for (int i = columna - 1; i >= 0; i--) {
-            if(filtroPiezas(piezasBlancas, "p" + fila + i)) break;
-            if(filtroPiezas(piezasNegras, "p" + fila + i)){
+            if(filtroPiezas(variable, "p" + fila + i)) break;
+            if(filtroPiezas(variable2, "p" + fila + i)){
                 resultado.add("p" + fila + i);
                 break;
             }
@@ -320,8 +346,8 @@ public class movimientos {
         
         //posibles movimientos derecha
         for (int i = columna + 1 ; i < tablero.FILAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + fila + i)) break;
-            if(filtroPiezas(piezasNegras, "p" + fila + i)){
+            if(filtroPiezas(variable, "p" + fila + i)) break;
+            if(filtroPiezas(variable2, "p" + fila + i)){
                 resultado.add("p" + fila + i);
                 break;
             }
@@ -330,8 +356,8 @@ public class movimientos {
         
         //posibles movimientos arriba
         for (int i = fila - 1; i >= 0; i--) {
-            if(filtroPiezas(piezasBlancas, "p" + i + columna)) break;
-            if(filtroPiezas(piezasNegras, "p" + i + columna)){
+            if(filtroPiezas(variable, "p" + i + columna)) break;
+            if(filtroPiezas(variable2, "p" + i + columna)){
                 resultado.add("p" + i + columna);
                 break;
             }
@@ -340,8 +366,8 @@ public class movimientos {
         
         //posibles movimientos abajo
         for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(piezasBlancas, "p" + i + columna)) break;
-            if(filtroPiezas(piezasNegras, "p" + i + columna)){
+            if(filtroPiezas(variable, "p" + i + columna)) break;
+            if(filtroPiezas(variable2, "p" + i + columna)){
                 resultado.add("p" + i + columna);
                 break;
             }

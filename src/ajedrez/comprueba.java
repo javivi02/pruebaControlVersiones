@@ -35,14 +35,60 @@ public class comprueba {
                 if(temporal.get(clave).equalsIgnoreCase(piezas.peonBlanco)){
                     
                     tablero.actualizarTableroReinaBlanca(clave);
-                    interfazGrafica.actualizarIconoPeonReina(clave);
+                    interfazGrafica.actualizarIconoPeonReinaBlanca(clave);
                     System.out.println("REINA");
                 }
             }   
         }
     }
+    
+    public void peonDamaNegro(){
+       
+       HashMap <String, String> temporal = tablero.piezasTablero();
+       
+       Iterator recorre = temporal.keySet().iterator();
+        
+        while(recorre.hasNext()){
+            
+            String clave = (String) recorre.next();
+
+            if(clave.equalsIgnoreCase("p70") || clave.equalsIgnoreCase("p71") || clave.equalsIgnoreCase("p72")
+                    || clave.equalsIgnoreCase("p73") || clave.equalsIgnoreCase("p74")
+                    || clave.equalsIgnoreCase("p75") || clave.equalsIgnoreCase("p76")
+                    || clave.equalsIgnoreCase("p77")){
+                
+                if(temporal.get(clave).equalsIgnoreCase(piezas.peonNegro)){
+                    
+                    tablero.actualizarTableroReinaNegra(clave);
+                    interfazGrafica.actualizarIconoPeonReinaNegra(clave);
+                    System.out.println("REINA");
+                }
+            }   
+        }
+    }
+    
+    public boolean finPartida(){
+        
+        HashMap<String, String> temporal = tablero.piezasTablero();
+        
+        int contador = 0;
+
+        Iterator recorre = temporal.keySet().iterator();
+
+        while (recorre.hasNext()) {
+
+            String clave = (String) recorre.next();
+
+            if (temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)) contador ++;
+            if (temporal.get(clave).equalsIgnoreCase(piezas.reyNegro)) contador ++;
+            
+        }
+
+        return contador < 2;
+        
+    }
    
-    public boolean isJaqueBlanca(ArrayList <String> movimientos, String tipoFicha){
+    public boolean isJaque(ArrayList <String> movimientos, String tipoFicha){
         
         String coordenadaRey = "";
         

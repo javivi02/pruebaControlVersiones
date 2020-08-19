@@ -48,14 +48,14 @@ public class intergfazGrafica extends javax.swing.JFrame {
             case piezas.caballoBlanco: marcaCasillasCaballo(coordenada, tipoFicha);break;
             case piezas.peonBlanco: marcaCasillasPeonBlanco(coordenada); break;
             case piezas.torreBlanca: marcaCasillasTorre(coordenada, tipoFicha); break;
-            case piezas.alfilBlanco: marcaCasillasAlfil(coordenada); break;              
-            case piezas.damaBlanca: marcaCasillasDama(coordenada); break;
+            case piezas.alfilBlanco: marcaCasillasAlfil(coordenada, tipoFicha); break;              
+            case piezas.damaBlanca: marcaCasillasDama(coordenada, tipoFicha); break;
             case piezas.reyBlanco: marcaCasillasRey(coordenada); break;
             
             case piezas.peonNegro: marcaCasillasPeonNegro(coordenada); break;
             case piezas.torreNegra: marcaCasillasTorre(coordenada, tipoFicha); break;
-            case piezas.alfilNegro: marcaCasillasAlfil(coordenada); break;              
-            case piezas.damaNegra: marcaCasillasDama(coordenada); break;
+            case piezas.alfilNegro: marcaCasillasAlfil(coordenada, tipoFicha); break;              
+            case piezas.damaNegra: marcaCasillasDama(coordenada, tipoFicha); break;
             case piezas.reyNegro: marcaCasillasRey(coordenada); break;
             case piezas.caballoNegro: marcaCasillasCaballo(coordenada, tipoFicha);break;
             
@@ -116,13 +116,13 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
     }
     
-    private void marcaCasillasAlfil(String coordenada){
+    private void marcaCasillasAlfil(String coordenada, String tipoFicha){
         
         ArrayList<String> temporal = new ArrayList<>();
         
         //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenada), tablero.getCoordenadasPiezasBlancas());
         
-        temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenada);
+        temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenada, tipoFicha);
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -131,13 +131,13 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
     }
     
-    private void marcaCasillasDama(String coordenada){
+    private void marcaCasillasDama(String coordenada, String tipoFicha){
         
         ArrayList<String> temporal = new ArrayList<>();
         
         //temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenada), tablero.getCoordenadasPiezasBlancas());
         
-        temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenada);
+        temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenada, tipoFicha);
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -159,10 +159,14 @@ public class intergfazGrafica extends javax.swing.JFrame {
 
     }
     
-    
-    public void actualizarIconoPeonReina(String coordenada){
+    public void actualizarIconoPeonReinaBlanca(String coordenada){
         
         coordenadaJButton(coordenada).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
+    }
+    
+    public void actualizarIconoPeonReinaNegra(String coordenada){
+        
+        coordenadaJButton(coordenada).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png")));
     }
     
     /**
@@ -382,21 +386,26 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 case piezas.caballoBlanco: moverCaballo(coordenadaInicio, coordenadaFinal, tipoFicha); break;
                 case piezas.peonBlanco: moverPeonBlanco(coordenadaInicio, coordenadaFinal); break;
                 case piezas.torreBlanca: moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
-                case piezas.alfilBlanco: moverAlfil(coordenadaInicio, coordenadaFinal); break;             
-                case piezas.damaBlanca: moverDama(coordenadaInicio, coordenadaFinal); break;
+                case piezas.alfilBlanco: moverAlfil(coordenadaInicio, coordenadaFinal, tipoFicha); break;             
+                case piezas.damaBlanca: moverDama(coordenadaInicio, coordenadaFinal, tipoFicha); break;
                 case piezas.reyBlanco: moverRey(coordenadaInicio, coordenadaFinal, tipoFicha); break;
                 
                 case piezas.peonNegro: moverPeonNegro(coordenadaInicio, coordenadaFinal); break;
                 case piezas.torreNegra: moverTorre(coordenadaInicio, coordenadaFinal, tipoFicha); break;
                 case piezas.reyNegro: moverRey(coordenadaInicio, coordenadaFinal, tipoFicha); break;
                 case piezas.caballoNegro: moverCaballo(coordenadaInicio, coordenadaFinal, tipoFicha); break;
+                case piezas.alfilNegro: moverAlfil(coordenadaInicio, coordenadaFinal, tipoFicha); break;
+                case piezas.damaNegra: moverDama(coordenadaInicio, coordenadaFinal, tipoFicha); break;
             }
         }
     }
     
     private void moverCaballo(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = new ArrayList<>();
+        
+        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        else temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasNegras());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -404,17 +413,28 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 
                 if(tipoFicha.contains("B")){
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
+                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
+                    ArrayList<String> temporal2 = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaFinal), tablero.getCoordenadasPiezasBlancas());
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                    
                 }else {
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bn.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+                    
+                    ArrayList<String> temporal2 = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaFinal), tablero.getCoordenadasPiezasNegras());
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
                     
                 }
                 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
 
             }
         }
@@ -427,11 +447,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
+                if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
                 tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
                 comprueba.peonDamaBlanco();
 
             }
@@ -445,19 +466,19 @@ public class intergfazGrafica extends javax.swing.JFrame {
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
+                if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
                 tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
+                comprueba.peonDamaNegro();
 
             }
         }
     }
     
     private void moverTorre(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
-
-//        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverTorre(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
 
         ArrayList<String> temporal = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaInicio, tipoFicha);
 
@@ -467,63 +488,103 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 
                 if(tipoFicha.contains("B")){
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                     // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
                     ArrayList<String> temporal2 = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaqueBlanca(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
                     
                 }else{
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                     
                     // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
                     ArrayList<String> temporal2 = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaqueBlanca(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
 
                 }
                 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
 
             }
         }
     }
     
-    private void moverAlfil(String coordenadaInicio, String coordenadaFinal) {
+    private void moverAlfil(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
 
-//        ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverAlfil(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
-
-        ArrayList<String> temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaInicio);
+        ArrayList<String> temporal = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaInicio, tipoFicha);
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
                 coordenadaJButton(coordenadaIncio).setIcon(null);
-                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png")));
+                
+                if (tipoFicha.contains("B")){
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png")));
+                    tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
+                    
+                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
+                    ArrayList<String> temporal2 = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                    
+                }else{
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bb.png")));
+                    tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+                    
+                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
+                    ArrayList<String> temporal2 = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                }
+
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
 
             }
         }
     }
     
-    private void moverDama(String coordenadaInicio, String coordenadaFinal) {
+    private void moverDama(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
 
-        //ArrayList<String> temporal = filtroCoordenadasPiezasBlancas(movimientos.moverDama(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
-
-        ArrayList<String> temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaInicio);    
+        ArrayList<String> temporal = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaInicio, tipoFicha);    
         
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
                 coordenadaJButton(coordenadaIncio).setIcon(null);
-                coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
+                
+                if (tipoFicha.contains("B")){
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
+                    tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
+                    
+                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
+                    ArrayList<String> temporal2 = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                    
+                }else{
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png")));
+                    tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+                    
+                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
+                    ArrayList<String> temporal2 = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
+                    if(comprueba.isJaque(temporal2, tipoFicha)) JOptionPane.showMessageDialog(this, "JAQUE!!!!!!");
+                }
+                
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
 
             }
         }
@@ -531,7 +592,10 @@ public class intergfazGrafica extends javax.swing.JFrame {
     
     private void moverRey(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
 
-        ArrayList<String> temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        ArrayList<String> temporal = new ArrayList<>();
+        
+        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
+        else temporal = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaInicio), tablero.getCoordenadasPiezasNegras());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -539,21 +603,26 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 
                 if(tipoFicha.contains("B")){
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                 }else{
+                    
+                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                        
                 }
 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
-                tablero.mostrarTablero();
+                tablero.mostrarTableroConsola();
 
             }
         }
     }
+    
     
     private void pasosAlHacerClick(String coordenada){
         
@@ -561,6 +630,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         coordenadaIncio = coordenada;
         marcaMovimientoTablero(coordenada);
         seleccionarJButton();
+        if(comprueba.finPartida()) JOptionPane.showMessageDialog(this, "Partida acabada");
         
     }
 
@@ -698,6 +768,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p03);
 
         p04.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p04.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png"))); // NOI18N
         p04.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p04ActionPerformed(evt);
@@ -706,6 +777,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p04);
 
         p05.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p05.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bb.png"))); // NOI18N
         p05.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p05ActionPerformed(evt);
@@ -714,6 +786,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p05);
 
         p06.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p06.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bn.png"))); // NOI18N
         p06.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p06ActionPerformed(evt);
@@ -722,7 +795,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p06);
 
         p07.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        p07.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png"))); // NOI18N
+        p07.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); // NOI18N
         p07.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p07ActionPerformed(evt);
@@ -731,6 +804,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p07);
 
         p10.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p10ActionPerformed(evt);
@@ -739,6 +813,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p10);
 
         p11.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p11ActionPerformed(evt);
@@ -747,6 +822,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p11);
 
         p12.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p12ActionPerformed(evt);
@@ -764,6 +840,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p13);
 
         p14.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p14ActionPerformed(evt);
@@ -772,6 +849,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p14);
 
         p15.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p15ActionPerformed(evt);
@@ -780,6 +858,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p15);
 
         p16.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p16ActionPerformed(evt);
@@ -788,6 +867,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jPanel1.add(p16);
 
         p17.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        p17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
         p17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 p17ActionPerformed(evt);

@@ -97,7 +97,7 @@ public class tablero {
     public tablero(){
         
         inicioPiezas();
-        rellenarCoordenadasPiezas();
+        rellenarCoordenadasPiezasInicio();
         
     }
     
@@ -107,19 +107,19 @@ public class tablero {
         piezasTablero.put(cooredanda01, piezas.caballoNegro);
         piezasTablero.put(cooredanda02, piezas.alfilNegro);
         piezasTablero.put(cooredanda03, piezas.damaNegra);
-        piezasTablero.put(cooredanda04, "-");
-        piezasTablero.put(cooredanda05, "-");
-        piezasTablero.put(cooredanda06, "-");
-        piezasTablero.put(cooredanda07, piezas.reyNegro);
+        piezasTablero.put(cooredanda04, piezas.reyNegro);
+        piezasTablero.put(cooredanda05, piezas.alfilNegro);
+        piezasTablero.put(cooredanda06, piezas.caballoNegro);
+        piezasTablero.put(cooredanda07, piezas.torreNegra);
         
-        piezasTablero.put(cooredanda10, "-");
-        piezasTablero.put(cooredanda11, "-");
-        piezasTablero.put(cooredanda12, "-");
+        piezasTablero.put(cooredanda10, piezas.peonNegro);
+        piezasTablero.put(cooredanda11, piezas.peonNegro);
+        piezasTablero.put(cooredanda12, piezas.peonNegro);
         piezasTablero.put(cooredanda13, piezas.peonNegro);
-        piezasTablero.put(cooredanda14, "-");
-        piezasTablero.put(cooredanda15, "-");
-        piezasTablero.put(cooredanda16, "-");
-        piezasTablero.put(cooredanda17, "-");
+        piezasTablero.put(cooredanda14, piezas.peonNegro);
+        piezasTablero.put(cooredanda15, piezas.peonNegro);
+        piezasTablero.put(cooredanda16, piezas.peonNegro);
+        piezasTablero.put(cooredanda17, piezas.peonNegro);
         
         piezasTablero.put(cooredanda20, "-");
         piezasTablero.put(cooredanda21, "-");
@@ -202,7 +202,13 @@ public class tablero {
         
     }
     
-    public void mostrarTablero(){
+    public void actualizarTableroReinaNegra(String clave){
+        
+        piezasTablero.put(clave, piezas.damaNegra);
+        
+    }
+    
+    public void mostrarTableroConsola(){
         
         //Muestra el tablero, hashMap piezasTablero, pero lo ordenado por la clave
         
@@ -220,7 +226,7 @@ public class tablero {
         System.out.println("--------------------");
     }
     
-    public void rellenarCoordenadasPiezas(){
+    public void rellenarCoordenadasPiezasInicio(){
         
         Iterator recorre = piezasTablero.keySet().iterator();
         
@@ -239,6 +245,11 @@ public class tablero {
         
     }
     
+    public void eliminarCoordenadasPiezasBlancas (String coordenada){
+        
+        coordenadasPiezasBlancas.remove(coordenada);
+    }
+    
     public ArrayList<String> getCoordenadasPiezasBlancas() {
         return coordenadasPiezasBlancas;
     }
@@ -248,6 +259,11 @@ public class tablero {
         coordenadasPiezasNegras.remove(coordenadaInicio);
         coordenadasPiezasNegras.add(coordenadaFinal);
         
+    }
+    
+    public void eliminarCoordenadasPiezasNegras (String coordenada){
+        
+        coordenadasPiezasNegras.remove(coordenada);
     }
     
     public ArrayList<String> getCoordenadasPiezasNegras() {
@@ -270,7 +286,7 @@ public class tablero {
         
         tablero.inicioPiezas();
 
-        tablero.mostrarTablero();
+        tablero.mostrarTableroConsola();
         
         ArrayList <String> listar = tablero.getCoordenadasPiezasBlancas();
         
