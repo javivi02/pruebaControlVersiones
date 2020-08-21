@@ -15,6 +15,7 @@ public class comprueba {
         this.tablero = tablero;
         this.interfazGrafica = interfazGrafica;
         this.movimientos = movimientos;
+
     }
     
     public void peonDamaBlanco(){
@@ -123,13 +124,5 @@ public class comprueba {
         
         return resultado;
     }
-    
-    public static void main(String[] args) {
-        
-        
-        
-        
-    }
-    
    
 }

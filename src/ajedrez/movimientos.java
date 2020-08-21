@@ -1,6 +1,9 @@
 package ajedrez;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  * @author Javier García Arranz
@@ -8,6 +11,19 @@ import java.util.ArrayList;
 public class movimientos {
     
     private tablero tablero;
+    
+    private boolean enrroqueCorto;
+    private boolean enrroqueLargo;
+    private int contadorEnrroqueCorto;
+    private int contadorEnrroqueLargo;
+    
+    public movimientos(tablero tablero){
+        
+        this.tablero = tablero; 
+        
+        contadorEnrroqueCorto = 0;
+        contadorEnrroqueLargo = 0;
+    }
     
     public ArrayList <String> moverCaballo(String coordenada){
         
@@ -163,44 +179,70 @@ public class movimientos {
         int columna = Integer.parseInt(temporal[2]);
         
         
-        //posibles movimientos izquierda
-        for (int i = columna - 1; i >= 0; i--) {
-            if(filtroPiezas(variable, "p" + fila + i)) break;
-            if(filtroPiezas(variable2, "p" + fila + i)){
+        if (enrroqueCorto){
+            
+            resultado.add("p" + fila + (columna - 2));
+            contadorEnrroqueCorto++;
+            
+            if (contadorEnrroqueCorto > 1){
+                enrroqueCorto = false;
+                contadorEnrroqueCorto = 0;
+            }
+        }
+        
+        else if (enrroqueLargo){
+            
+            resultado.add("p" + fila + (columna + 3));
+            contadorEnrroqueLargo++;
+            
+            if (contadorEnrroqueLargo > 1){
+                enrroqueLargo = false;
+                contadorEnrroqueLargo = 0;
+            }
+        }
+        
+        else{
+        
+            //posibles movimientos izquierda
+            for (int i = columna - 1; i >= 0; i--) {
+                if(filtroPiezas(variable, "p" + fila + i)) break;
+                if(filtroPiezas(variable2, "p" + fila + i)){
+                    resultado.add("p" + fila + i);
+                    break;
+                }
                 resultado.add("p" + fila + i);
-                break;
             }
-            resultado.add("p" + fila + i);
-        }
-        
-        //posibles movimientos derecha
-        for (int i = columna + 1 ; i < tablero.FILAS; i++) {
-            if(filtroPiezas(variable, "p" + fila + i)) break;
-            if(filtroPiezas(variable2, "p" + fila + i)){
+
+            //posibles movimientos derecha
+            for (int i = columna + 1 ; i < tablero.FILAS; i++) {
+                if(filtroPiezas(variable, "p" + fila + i)) break;
+                if(filtroPiezas(variable2, "p" + fila + i)){
+                    resultado.add("p" + fila + i);
+                    break;
+                }
                 resultado.add("p" + fila + i);
-                break;
             }
-            resultado.add("p" + fila + i);
-        }
-        
-        //posibles movimientos arriba
-        for (int i = fila - 1; i >= 0; i--) {
-            if(filtroPiezas(variable, "p" + i + columna)) break;
-            if(filtroPiezas(variable2, "p" + i + columna)){
+
+            //posibles movimientos arriba
+            for (int i = fila - 1; i >= 0; i--) {
+                if(filtroPiezas(variable, "p" + i + columna)) break;
+                if(filtroPiezas(variable2, "p" + i + columna)){
+                    resultado.add("p" + i + columna);
+                    break;
+                }
                 resultado.add("p" + i + columna);
-                break;
             }
-            resultado.add("p" + i + columna);
-        }
-        
-        //posibles movimientos abajo
-        for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
-            if(filtroPiezas(variable, "p" + i + columna)) break;
-            if(filtroPiezas(variable2, "p" + i + columna)){
+
+            //posibles movimientos abajo
+            for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
+                if(filtroPiezas(variable, "p" + i + columna)) break;
+                if(filtroPiezas(variable2, "p" + i + columna)){
+                    resultado.add("p" + i + columna);
+                    break;
+                }
                 resultado.add("p" + i + columna);
-                break;
             }
-            resultado.add("p" + i + columna);
+        
         }
         
         return resultado;
@@ -427,6 +469,26 @@ public class movimientos {
             resultado.add("p" + (fila + 1) + columna);
         }
         
+        if (enrroqueCortoBlancas() && intergfazGrafica.numeroMovimientosReyBlanco == 0){
+            resultado.add("p" + fila + (columna + 2));
+            enrroqueCorto = true;
+        }
+        
+        if (enrroqueCortoNegras() && intergfazGrafica.numeroMovimientosReyNegro == 0){
+            resultado.add("p" + fila + (columna + 2));
+            enrroqueCorto = true;
+        }
+        
+        if (enrroqueLargoBlancas() && intergfazGrafica.numeroMovimientosReyBlanco == 0){
+            resultado.add("p" + fila + (columna - 2));
+            enrroqueLargo = true;
+        }
+        
+        if (enrroqueLargoNegras() && intergfazGrafica.numeroMovimientosReyNegro == 0){
+            resultado.add("p" + fila + (columna - 2));
+            enrroqueLargo = true;
+        }
+        
         return resultado;
         
     }
@@ -451,11 +513,146 @@ public class movimientos {
         return false;
         
     }
+
+    private boolean enrroqueCortoBlancas(){
+        
+        HashMap <String, String> temporal = tablero.piezasTablero();
+        
+        int contador = 0;
+
+        Iterator recorre = temporal.keySet().iterator();
+
+        while (recorre.hasNext()) {
+
+            String clave = (String) recorre.next();
+            if(clave.equalsIgnoreCase("p77")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.torreBlanca)) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p76")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p75")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p74")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)) contador ++;
+            }
+
+        }
+        
+        return contador == 4;
+    }
     
+    private boolean enrroqueCortoNegras(){
+        
+        HashMap <String, String> temporal = tablero.piezasTablero();
+        
+        int contador = 0;
+
+        Iterator recorre = temporal.keySet().iterator();
+
+        while (recorre.hasNext()) {
+
+            String clave = (String) recorre.next();
+            if(clave.equalsIgnoreCase("p07")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.torreNegra)) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p06")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p05")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p04")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.reyNegro)) contador ++;
+            }
+
+        }
+        
+        return contador == 4;
+    }
+    
+    private boolean enrroqueLargoNegras(){
+        
+        HashMap <String, String> temporal = tablero.piezasTablero();
+        
+        int contador = 0;
+
+        Iterator recorre = temporal.keySet().iterator();
+
+        while (recorre.hasNext()) {
+
+            String clave = (String) recorre.next();
+            if(clave.equalsIgnoreCase("p00")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.torreNegra)) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p01")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p02")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p03")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p04")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.reyNegro)) contador ++;
+            }
+
+        }
+        
+        return contador == 5;
+    }
+    
+    private boolean enrroqueLargoBlancas(){
+        
+        HashMap <String, String> temporal = tablero.piezasTablero();
+        
+        int contador = 0;
+
+        Iterator recorre = temporal.keySet().iterator();
+
+        while (recorre.hasNext()) {
+
+            String clave = (String) recorre.next();
+            if(clave.equalsIgnoreCase("p70")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.torreBlanca)) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p71")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p72")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p73")){
+                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
+            }
+            
+            if(clave.equalsIgnoreCase("p74")){
+                if (temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)) contador ++;
+            }
+
+        }
+        
+        return contador == 5;
+    }
     
     public static void main(String[] args) {
          
-        movimientos movimientos = new movimientos();
+//        movimientos movimientos = new movimientos();
         
 //        ArrayList <String> prueba = movimientos.moverTorre("p00");
 //        ArrayList <String> prueba = movimientos.moverAlfil("p36");

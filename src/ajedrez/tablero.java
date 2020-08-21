@@ -210,18 +210,23 @@ public class tablero {
     
     public void mostrarTableroConsola(){
         
-        //Muestra el tablero, hashMap piezasTablero, pero lo ordenado por la clave
-        
+        //Muestra el tablero, hashMap piezasTablero, pero lo ordeno por la clave
+
         Map<String, String> treeMap = new TreeMap<String, String>(piezasTablero);
+        int contador = 0;
         
         Set s = treeMap.entrySet();
         Iterator it = s.iterator();
         
         while (it.hasNext()) {
+            
+            contador++;
             Map.Entry entry = (Map.Entry) it.next();
             String key = (String) entry.getKey();
             String value = (String) entry.getValue();
-            System.out.println("Coordenada: " + key + " -> Pieza: " + value);
+            System.out.print(key + ":" + value + " ");
+            if (contador % 8 == 0) System.out.println("");
+            
         }
         System.out.println("--------------------");
     }
