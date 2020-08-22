@@ -43,6 +43,8 @@ public class intergfazGrafica extends javax.swing.JFrame {
         numeroMovimientosReyBlanco = 0;
         numeroMovimientosReyNegro = 0;
         
+        textInfo.setText("mueven " + turno.turnoActual());
+        
 //        this.p00.setEnabled(false);
     }
     
@@ -226,9 +228,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
             coordenadaIncio = null;
         }
         
-//        System.out.println("mover : " + mover);
-//        System.out.println("click : " + clickJButton);
-//        System.out.println("----------");
+        System.out.println("mover : " + mover);
+        System.out.println("click : " + clickJButton);
+        System.out.println("----------");
     }
     
     public void cambiarTurno(){
@@ -247,6 +249,13 @@ public class intergfazGrafica extends javax.swing.JFrame {
         
     }
 
+    /**
+     * Compruebo si la coordenada marcada corresponde al turno actual
+     * 
+     * @param coordenada
+     * @return 
+     */
+    
     public boolean compruebaTurno(String coordenada){
         
         String temporal = turno.turnoActual();
@@ -259,10 +268,14 @@ public class intergfazGrafica extends javax.swing.JFrame {
         return temporal.equalsIgnoreCase(color);
     }
     
+    /**
+     * Compruebo si la coordenada marcada pertenece a las piezas blancas
+     * 
+     * @param coordenada
+     * @return 
+     */
     
     private boolean coordenadasTurnoBlanca (String coordenada){
-        
-//        System.out.println("entra");
         
         ArrayList <String> resultado = tablero.getCoordenadasPiezasBlancas();
         
@@ -274,6 +287,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
         return false;
     }
     
+    /**
+     * Compruebo si la coordenada marcada pertenece a las piezas negras
+     * 
+     * @param coordenada
+     * @return 
+     */
     
     private boolean coordenadasTurnoNegra (String coordenada){
         
@@ -725,17 +744,30 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private void pasosAlHacerClick(String coordenada){
         
         mover(coordenadaIncio, coordenada);
-        seleccionarJButton();
         
         if(compruebaTurno(coordenada)){
             
-            //mover(coordenadaIncio, coordenada);
             coordenadaIncio = coordenada;
             marcaMovimientoTablero(coordenada);
-            //seleccionarJButton();
-            if(comprueba.finPartida()) textInfo.setText("partida acabada");
+            seleccionarJButton();
+            //if(comprueba.finPartida()) JOptionPane.showMessageDialog(this, "FIN DE JUEGO, GANAN : " + turno.turnoActual());
             
-        }else textInfo.setText("mueven " + turno.turnoActual());
+        }else{
+            
+            //Ajusto para cuando haga click en casilla y tengo seleccionada posicion marcada
+            mover = false;
+            clickJButton = true;
+            resetearBackgroud();
+            
+            textInfo.setText("mueven " + turno.turnoActual());
+        }
+        
+        if(comprueba.finPartida()){
+            
+            turno.cambiarTurno(); //Ajusto el turno tras el ultimo movimiento
+            JOptionPane.showMessageDialog(this, "FIN DE JUEGO, GANAN : " + turno.turnoActual().toUpperCase());
+            this.dispose();
+        }
         
     }
 
