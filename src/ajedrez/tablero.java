@@ -208,6 +208,16 @@ public class tablero {
         
     }
     
+    public void actualizarTorreBlancaEnrroque(){
+        
+        piezasTablero.put("p75", piezas.torreBlanca);
+    }
+    
+    public void actualizarTorreNegraEnrroque(){
+        
+        piezasTablero.put("p05", piezas.torreNegra);
+    }
+    
     public void mostrarTableroConsola(){
         
         //Muestra el tablero, hashMap piezasTablero, pero lo ordeno por la clave

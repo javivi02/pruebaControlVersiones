@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author jgarciaa
  */
-public class intergfazGrafica extends javax.swing.JFrame {
+public class interfazGrafica extends javax.swing.JFrame {
 
     private tablero tablero;
     private movimientos movimientos;
@@ -29,12 +29,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     
-    public intergfazGrafica() {
+    public interfazGrafica() {
         
         initComponents();
         
         tablero = new tablero();
-        movimientos = new movimientos(tablero);
+        movimientos = new movimientos(tablero, this);
         turno = new turno();
         comprueba = new comprueba(tablero, this, movimientos);
         
@@ -48,7 +48,14 @@ public class intergfazGrafica extends javax.swing.JFrame {
 //        this.p00.setEnabled(false);
     }
     
-    private String getPiezaCoordenadaTablero(String coordenada){
+    /**
+     * Devuelve el tipo de ficha en funcion de la coordenada pasada
+     * 
+     * @param coordenada
+     * @return 
+     */
+    
+    public String getPiezaCoordenadaTablero(String coordenada){
           
         return tablero.contenidoCoordenada(coordenada);
     }
@@ -183,6 +190,24 @@ public class intergfazGrafica extends javax.swing.JFrame {
         coordenadaJButton(coordenada).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png")));
     }
     
+    public void moverTorreBlancaEnrroqueCorto(){
+        
+        tablero.actualizarTorreBlancaEnrroque();
+        tablero.actualizarCoordenadasPiezasBlancas("p77", "p75");
+        tablero.actualizarCoordenada("p77", "p75");
+        coordenadaJButton("p77").setIcon(null);
+        coordenadaJButton("p75").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); 
+    }
+    
+    public void moverTorreNegraEnrroqueCorto(){
+        
+        tablero.actualizarTorreBlancaEnrroque();
+        tablero.actualizarCoordenadasPiezasBlancas("p07", "p05");
+        tablero.actualizarCoordenada("p07", "p05");
+        coordenadaJButton("p07").setIcon(null);
+        coordenadaJButton("p05").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); 
+    }
+    
     /**
      * Filtro los movimientos posibles en funcion de la ocupacion de las casillas del mismo color.
      * Solo para peon y caballo. Habria que llevarlo a la clase movimientos
@@ -228,9 +253,6 @@ public class intergfazGrafica extends javax.swing.JFrame {
             coordenadaIncio = null;
         }
         
-        System.out.println("mover : " + mover);
-        System.out.println("click : " + clickJButton);
-        System.out.println("----------");
     }
     
     public void cambiarTurno(){
@@ -513,24 +535,16 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 
                 if(tipoFicha.contains("B")){
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    //if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
-                    
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaFinal), tablero.getCoordenadasPiezasBlancas());
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
-                    
                     
                 }else {
                     
                     if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bn.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
-                    
-                    ArrayList<String> temporal2 = filtroCoordenadasPiezas(movimientos.moverCaballo(coordenadaFinal), tablero.getCoordenadasPiezasNegras());
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
-                    
                 }
                 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -600,19 +614,11 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
-                    
                 }else{
                     
                     if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
-                    
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
 
                 }
                 
@@ -640,19 +646,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
-                    
                 }else{
                     
                     if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bb.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                     
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
                 }
 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -679,19 +678,12 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
-                    
                 }else{
                     
                     if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
-                    
-                    // Pido los posibles movimientos con la coordenada de destino, para comprobar si es jaque
-                    ArrayList<String> temporal2 = movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), coordenadaFinal, tipoFicha);
-                    if(comprueba.isJaque(temporal2, tipoFicha)) this.textInfo.setText("JAQUE !!!!");
+
                 }
                 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -721,6 +713,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     numeroMovimientosReyBlanco++;
+                    if(movimientos.isEnrroqueCortoBlancas()) moverTorreBlancaEnrroqueCorto();
                     
                 }else{
                     
@@ -728,6 +721,7 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                     numeroMovimientosReyNegro++;
+                    if(movimientos.isEnrroqueCortoNegras()) moverTorreNegraEnrroqueCorto();
                        
                 }
 
@@ -750,17 +744,31 @@ public class intergfazGrafica extends javax.swing.JFrame {
             coordenadaIncio = coordenada;
             marcaMovimientoTablero(coordenada);
             seleccionarJButton();
-            //if(comprueba.finPartida()) JOptionPane.showMessageDialog(this, "FIN DE JUEGO, GANAN : " + turno.turnoActual());
             
         }else{
             
-            //Ajusto para cuando haga click en casilla y tengo seleccionada posicion marcada
+            //Ajusto para cuando haga click en una casilla y tengo seleccionada una posicion marcada
             mover = false;
             clickJButton = true;
             resetearBackgroud();
             
             textInfo.setText("mueven " + turno.turnoActual());
         }
+        
+        if(comprueba.jaqueBlancas()){
+            
+            System.out.println("JAQUE !!!! REY BLANCO");
+            comprueba.setBlancasJaque(true); // Para activar o desactivar enrroque
+            
+        } else comprueba.setBlancasJaque(false);
+        
+        
+        if(comprueba.jaqueNegras()){
+            
+            System.out.println("JAQUE !!!! REY NEGRO");
+            comprueba.setNegrasJaque(true); // Para activar o desactivar enrroque
+            
+        } else comprueba.setNegrasJaque(false);
         
         if(comprueba.finPartida()){
             
@@ -871,6 +879,9 @@ public class intergfazGrafica extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         textInfo = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        labelPeon = new javax.swing.JLabel();
+        textPeon = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1502,6 +1513,33 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        labelPeon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
+        labelPeon.setEnabled(false);
+
+        textPeon.setBackground(new java.awt.Color(204, 204, 204));
+        textPeon.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(labelPeon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textPeon, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textPeon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPeon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 68, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1541,7 +1579,11 @@ public class intergfazGrafica extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1583,7 +1625,10 @@ public class intergfazGrafica extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -1991,21 +2036,23 @@ public class intergfazGrafica extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(intergfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(intergfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(intergfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(intergfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new intergfazGrafica().setVisible(true);
+                new interfazGrafica().setVisible(true);
             }
         });
     }
@@ -2031,6 +2078,8 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    public javax.swing.JLabel labelPeon;
     private javax.swing.JButton p00;
     private javax.swing.JButton p01;
     private javax.swing.JButton p02;
@@ -2096,5 +2145,6 @@ public class intergfazGrafica extends javax.swing.JFrame {
     private javax.swing.JButton p76;
     private javax.swing.JButton p77;
     private javax.swing.JTextField textInfo;
+    public javax.swing.JTextField textPeon;
     // End of variables declaration//GEN-END:variables
 }

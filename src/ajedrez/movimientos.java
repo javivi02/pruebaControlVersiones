@@ -3,7 +3,6 @@ package ajedrez;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  * @author Javier García Arranz
@@ -11,18 +10,19 @@ import jdk.nashorn.internal.ir.BreakNode;
 public class movimientos {
     
     private tablero tablero;
+    private interfazGrafica interfazGrafica;
+    private comprueba comprueba;
     
-    private boolean enrroqueCorto;
-    private boolean enrroqueLargo;
-    private int contadorEnrroqueCorto;
-    private int contadorEnrroqueLargo;
-    
-    public movimientos(tablero tablero){
+    private boolean enrroqueCortoBlancas;
+    private boolean enrroqueCortoNegras;
+    private boolean enrroqueLargoBlancas;
+    private boolean enrroqueLargoNegras;
+
+    public movimientos(tablero tablero, interfazGrafica interfazGrafica){
         
         this.tablero = tablero; 
+        comprueba = new comprueba(tablero, interfazGrafica, this);
         
-        contadorEnrroqueCorto = 0;
-        contadorEnrroqueLargo = 0;
     }
     
     public ArrayList <String> moverCaballo(String coordenada){
@@ -178,72 +178,55 @@ public class movimientos {
         int fila = Integer.parseInt(temporal[1]);
         int columna = Integer.parseInt(temporal[2]);
         
-        
-        if (enrroqueCorto){
-            
-            resultado.add("p" + fila + (columna - 2));
-            contadorEnrroqueCorto++;
-            
-            if (contadorEnrroqueCorto > 1){
-                enrroqueCorto = false;
-                contadorEnrroqueCorto = 0;
+        //posibles movimientos izquierda
+        for (int i = columna - 1; i >= 0; i--) {
+            if (filtroPiezas(variable, "p" + fila + i)) {
+                break;
             }
-        }
-        
-        else if (enrroqueLargo){
-            
-            resultado.add("p" + fila + (columna + 3));
-            contadorEnrroqueLargo++;
-            
-            if (contadorEnrroqueLargo > 1){
-                enrroqueLargo = false;
-                contadorEnrroqueLargo = 0;
-            }
-        }
-        
-        else{
-        
-            //posibles movimientos izquierda
-            for (int i = columna - 1; i >= 0; i--) {
-                if(filtroPiezas(variable, "p" + fila + i)) break;
-                if(filtroPiezas(variable2, "p" + fila + i)){
-                    resultado.add("p" + fila + i);
-                    break;
-                }
+            if (filtroPiezas(variable2, "p" + fila + i)) {
                 resultado.add("p" + fila + i);
+                break;
             }
-
-            //posibles movimientos derecha
-            for (int i = columna + 1 ; i < tablero.FILAS; i++) {
-                if(filtroPiezas(variable, "p" + fila + i)) break;
-                if(filtroPiezas(variable2, "p" + fila + i)){
-                    resultado.add("p" + fila + i);
-                    break;
-                }
-                resultado.add("p" + fila + i);
-            }
-
-            //posibles movimientos arriba
-            for (int i = fila - 1; i >= 0; i--) {
-                if(filtroPiezas(variable, "p" + i + columna)) break;
-                if(filtroPiezas(variable2, "p" + i + columna)){
-                    resultado.add("p" + i + columna);
-                    break;
-                }
-                resultado.add("p" + i + columna);
-            }
-
-            //posibles movimientos abajo
-            for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
-                if(filtroPiezas(variable, "p" + i + columna)) break;
-                if(filtroPiezas(variable2, "p" + i + columna)){
-                    resultado.add("p" + i + columna);
-                    break;
-                }
-                resultado.add("p" + i + columna);
-            }
-        
+            resultado.add("p" + fila + i);
         }
+
+        //posibles movimientos derecha
+        for (int i = columna + 1; i < tablero.FILAS; i++) {
+            if (filtroPiezas(variable, "p" + fila + i)) {
+                break;
+            }
+            if (filtroPiezas(variable2, "p" + fila + i)) {
+                resultado.add("p" + fila + i);
+                break;
+            }
+            resultado.add("p" + fila + i);
+        }
+
+        //posibles movimientos arriba
+        for (int i = fila - 1; i >= 0; i--) {
+            if (filtroPiezas(variable, "p" + i + columna)) {
+                break;
+            }
+            if (filtroPiezas(variable2, "p" + i + columna)) {
+                resultado.add("p" + i + columna);
+                break;
+            }
+            resultado.add("p" + i + columna);
+        }
+
+        //posibles movimientos abajo
+        for (int i = fila + 1; i < tablero.COLUMNAS; i++) {
+            if (filtroPiezas(variable, "p" + i + columna)) {
+                break;
+            }
+            if (filtroPiezas(variable2, "p" + i + columna)) {
+                resultado.add("p" + i + columna);
+                break;
+            }
+            resultado.add("p" + i + columna);
+        }
+        
+        
         
         return resultado;
     }
@@ -469,24 +452,26 @@ public class movimientos {
             resultado.add("p" + (fila + 1) + columna);
         }
         
-        if (enrroqueCortoBlancas() && intergfazGrafica.numeroMovimientosReyBlanco == 0){
+        if (comprueba.enrroqueCortoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0 
+                && comprueba.isBlancasJaque() == false){
             resultado.add("p" + fila + (columna + 2));
-            enrroqueCorto = true;
+            enrroqueCortoBlancas = true;
         }
         
-        if (enrroqueCortoNegras() && intergfazGrafica.numeroMovimientosReyNegro == 0){
+        if (comprueba.enrroqueCortoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
+                && comprueba.isNegrasJaque() == false){
             resultado.add("p" + fila + (columna + 2));
-            enrroqueCorto = true;
+            enrroqueCortoNegras = true;
         }
         
-        if (enrroqueLargoBlancas() && intergfazGrafica.numeroMovimientosReyBlanco == 0){
+        if (enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0){
             resultado.add("p" + fila + (columna - 2));
-            enrroqueLargo = true;
+//            enrroqueLargo = true;
         }
         
-        if (enrroqueLargoNegras() && intergfazGrafica.numeroMovimientosReyNegro == 0){
+        if (enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0){
             resultado.add("p" + fila + (columna - 2));
-            enrroqueLargo = true;
+//            enrroqueLargo = true;
         }
         
         return resultado;
@@ -512,70 +497,6 @@ public class movimientos {
         
         return false;
         
-    }
-
-    private boolean enrroqueCortoBlancas(){
-        
-        HashMap <String, String> temporal = tablero.piezasTablero();
-        
-        int contador = 0;
-
-        Iterator recorre = temporal.keySet().iterator();
-
-        while (recorre.hasNext()) {
-
-            String clave = (String) recorre.next();
-            if(clave.equalsIgnoreCase("p77")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.torreBlanca)) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p76")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p75")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p74")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)) contador ++;
-            }
-
-        }
-        
-        return contador == 4;
-    }
-    
-    private boolean enrroqueCortoNegras(){
-        
-        HashMap <String, String> temporal = tablero.piezasTablero();
-        
-        int contador = 0;
-
-        Iterator recorre = temporal.keySet().iterator();
-
-        while (recorre.hasNext()) {
-
-            String clave = (String) recorre.next();
-            if(clave.equalsIgnoreCase("p07")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.torreNegra)) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p06")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p05")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p04")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.reyNegro)) contador ++;
-            }
-
-        }
-        
-        return contador == 4;
     }
     
     private boolean enrroqueLargoNegras(){
@@ -648,6 +569,22 @@ public class movimientos {
         }
         
         return contador == 5;
+    }
+
+    public boolean isEnrroqueCortoBlancas() {
+        return enrroqueCortoBlancas;
+    }
+
+    public boolean isEnrroqueCortoNegras() {
+        return enrroqueCortoNegras;
+    }
+
+    public boolean isEnrroqueLargoBlancas() {
+        return enrroqueLargoBlancas;
+    }
+
+    public boolean isEnrroqueLargoNegras() {
+        return enrroqueLargoNegras;
     }
     
     public static void main(String[] args) {
