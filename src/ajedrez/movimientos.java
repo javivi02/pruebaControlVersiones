@@ -23,6 +23,9 @@ public class movimientos {
         this.tablero = tablero; 
         comprueba = new comprueba(tablero, interfazGrafica, this);
         
+        enrroqueCortoBlancas = false;
+        enrroqueCortoNegras = false;
+        
     }
     
     public ArrayList <String> moverCaballo(String coordenada){
@@ -403,9 +406,14 @@ public class movimientos {
         
     }
     
-    public ArrayList <String> moverRey (String coordenada){
+    public ArrayList <String> moverRey (String coordenada, String tipoFicha){
 
         ArrayList <String> resultado = new ArrayList<>();
+        
+        boolean blanco = false, negro = false;
+        
+        if(tipoFicha.contains("B")) blanco = true;
+        else negro = true;
         
         String temporal [] = coordenada.split("");
         
@@ -453,26 +461,26 @@ public class movimientos {
         }
         
         if (comprueba.enrroqueCortoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0 
-                && comprueba.isBlancasJaque() == false){
+                && comprueba.isBlancasJaque() == false && blanco == true){
             resultado.add("p" + fila + (columna + 2));
             enrroqueCortoBlancas = true;
-        }
+        } 
         
         if (comprueba.enrroqueCortoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
-                && comprueba.isNegrasJaque() == false){
+                && comprueba.isNegrasJaque() == false && negro == true){
             resultado.add("p" + fila + (columna + 2));
             enrroqueCortoNegras = true;
-        }
+        } 
         
-        if (enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0){
-            resultado.add("p" + fila + (columna - 2));
-//            enrroqueLargo = true;
-        }
-        
-        if (enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0){
-            resultado.add("p" + fila + (columna - 2));
-//            enrroqueLargo = true;
-        }
+//        if (enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0){
+//            resultado.add("p" + fila + (columna - 2));
+////            enrroqueLargo = true;
+//        }
+//        
+//        if (enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0){
+//            resultado.add("p" + fila + (columna - 2));
+////            enrroqueLargo = true;
+//        }
         
         return resultado;
         

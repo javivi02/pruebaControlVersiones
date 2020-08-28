@@ -170,8 +170,8 @@ public class interfazGrafica extends javax.swing.JFrame {
         
         ArrayList<String> temporal = new ArrayList<>();
         
-        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenada), tablero.getCoordenadasPiezasBlancas());
-        else temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenada), tablero.getCoordenadasPiezasNegras());
+        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenada, tipoFicha), tablero.getCoordenadasPiezasBlancas());
+        else temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenada, tipoFicha), tablero.getCoordenadasPiezasNegras());
         
         for (int i = 0; i < temporal.size(); i++) {
 
@@ -201,8 +201,8 @@ public class interfazGrafica extends javax.swing.JFrame {
     
     public void moverTorreNegraEnrroqueCorto(){
         
-        tablero.actualizarTorreBlancaEnrroque();
-        tablero.actualizarCoordenadasPiezasBlancas("p07", "p05");
+        tablero.actualizarTorreNegraEnrroque();
+        tablero.actualizarCoordenadasPiezasNegras("p07", "p05");
         tablero.actualizarCoordenada("p07", "p05");
         coordenadaJButton("p07").setIcon(null);
         coordenadaJButton("p05").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); 
@@ -266,8 +266,8 @@ public class interfazGrafica extends javax.swing.JFrame {
         
         String temporal = turno.turnoActual();
         
-        if (temporal.equalsIgnoreCase("blancas"))this.textInfo.setText("mueven BLANCAS");
-        if (temporal.equalsIgnoreCase("negras"))this.textInfo.setText("mueven NEGRAS");
+        if (temporal.equalsIgnoreCase("blancas"))this.textInfo.setText("Turno BLANCAS");
+        if (temporal.equalsIgnoreCase("negras"))this.textInfo.setText("Turno NEGRAS");
         
     }
 
@@ -699,8 +699,8 @@ public class interfazGrafica extends javax.swing.JFrame {
 
         ArrayList<String> temporal = new ArrayList<>();
         
-        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio), tablero.getCoordenadasPiezasBlancas());
-        else temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio), tablero.getCoordenadasPiezasNegras());
+        if(tipoFicha.contains("B")) temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio, tipoFicha), tablero.getCoordenadasPiezasBlancas());
+        else temporal = filtroCoordenadasPiezas(movimientos.moverRey(coordenadaInicio, tipoFicha), tablero.getCoordenadasPiezasNegras());
 
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
@@ -739,6 +739,17 @@ public class interfazGrafica extends javax.swing.JFrame {
         
         mover(coordenadaIncio, coordenada);
         
+        turnoToca(coordenada);
+        
+        compruebaJaque();
+        
+        finJuego();
+        
+    }
+    
+    private void turnoToca(String coordenada){
+        
+        
         if(compruebaTurno(coordenada)){
             
             coordenadaIncio = coordenada;
@@ -754,6 +765,9 @@ public class interfazGrafica extends javax.swing.JFrame {
             
             textInfo.setText("mueven " + turno.turnoActual());
         }
+    }
+    
+    private void compruebaJaque(){
         
         if(comprueba.jaqueBlancas()){
             
@@ -769,6 +783,15 @@ public class interfazGrafica extends javax.swing.JFrame {
             comprueba.setNegrasJaque(true); // Para activar o desactivar enrroque
             
         } else comprueba.setNegrasJaque(false);
+        
+//        System.out.println("------");
+//        System.out.println(comprueba.isBlancasJaque());
+//        System.out.println("------");
+//        System.out.println(comprueba.isNegrasJaque());
+        
+    }
+    
+    private void finJuego(){
         
         if(comprueba.finPartida()){
             

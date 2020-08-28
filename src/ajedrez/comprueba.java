@@ -150,8 +150,8 @@ public class comprueba {
                     break;
                     
                 case piezas.reyNegro:
-                    for (int j = 0; j < movimientos.moverRey(temporal.get(i)).size(); j++) {
-                        movimientosNegras.add(movimientos.moverRey(temporal.get(i)).get(j));
+                    for (int j = 0; j < movimientos.moverRey(temporal.get(i), piezas.reyBlanco).size(); j++) {
+                        movimientosNegras.add(movimientos.moverRey(temporal.get(i), piezas.reyBlanco).get(j));
                     }
                     break;
                     
@@ -203,8 +203,8 @@ public class comprueba {
                     break;
                     
                 case piezas.reyBlanco:
-                    for (int j = 0; j < movimientos.moverRey(temporal.get(i)).size(); j++) {
-                        movimientosNegras.add(movimientos.moverRey(temporal.get(i)).get(j));
+                    for (int j = 0; j < movimientos.moverRey(temporal.get(i), piezas.reyNegro).size(); j++) {
+                        movimientosNegras.add(movimientos.moverRey(temporal.get(i), piezas.reyNegro).get(j));
                     }
                     break;
                     
@@ -416,21 +416,25 @@ public class comprueba {
 
     }
 
-    public boolean isBlancasJaque() {
+    public static boolean isBlancasJaque() {
         return blancasJaque;
     }
 
-    public void setBlancasJaque(boolean jaqueBlancas) {
-        this.blancasJaque = jaqueBlancas;
+    public static void setBlancasJaque(boolean jaqueBlancas) {
+        comprueba.blancasJaque = jaqueBlancas;
     }
-    
-    public boolean isNegrasJaque() {
+
+    public static boolean isNegrasJaque() {
         return negrasJaque;
     }
 
-    public void setNegrasJaque(boolean jaqueBlancas) {
-        this.negrasJaque = jaqueBlancas;
+    public static void setNegrasJaque(boolean negrasJaque) {
+        comprueba.negrasJaque = negrasJaque;
     }
+    
+    
+    
+
     
     
     
