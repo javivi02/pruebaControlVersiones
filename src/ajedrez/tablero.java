@@ -208,15 +208,27 @@ public class tablero {
         
     }
     
-    public void actualizarTorreBlancaEnrroque(){
+    public void actualizarTorreBlancaEnrroqueCorto(){
         
         piezasTablero.put("p75", piezas.torreBlanca);
     }
     
-    public void actualizarTorreNegraEnrroque(){
+    public void actualizarTorreNegraEnrroqueCorto(){
         
         piezasTablero.put("p05", piezas.torreNegra);
     }
+    
+    public void actualizarTorreBlancaEnrroqueLargo(){
+        
+        piezasTablero.put("p73", piezas.torreBlanca);
+    }
+    
+    public void actualizarTorreNegraEnrroqueLargo(){
+        
+        piezasTablero.put("p03", piezas.torreNegra);
+    }
+    
+    
     
     public void mostrarTableroConsola(){
         

@@ -410,7 +410,7 @@ public class movimientos {
 
         ArrayList <String> resultado = new ArrayList<>();
         
-        boolean blanco = false, negro = false;
+        boolean blanco = false, negro = false; // Para indicar si sumo movimientos en el enrroque a rey blanco o negro
         
         if(tipoFicha.contains("B")) blanco = true;
         else negro = true;
@@ -472,15 +472,17 @@ public class movimientos {
             enrroqueCortoNegras = true;
         } 
         
-//        if (enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0){
-//            resultado.add("p" + fila + (columna - 2));
-////            enrroqueLargo = true;
-//        }
-//        
-//        if (enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0){
-//            resultado.add("p" + fila + (columna - 2));
-////            enrroqueLargo = true;
-//        }
+        if (comprueba.enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0
+                && comprueba.isBlancasJaque() == false && blanco == true){
+            resultado.add("p" + fila + (columna - 2));
+            enrroqueLargoBlancas = true;
+        }
+        
+        if (comprueba.enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
+                && comprueba.isNegrasJaque() == false && negro == true){
+            resultado.add("p" + fila + (columna - 2));
+            enrroqueLargoNegras = true;
+        }
         
         return resultado;
         
@@ -505,78 +507,6 @@ public class movimientos {
         
         return false;
         
-    }
-    
-    private boolean enrroqueLargoNegras(){
-        
-        HashMap <String, String> temporal = tablero.piezasTablero();
-        
-        int contador = 0;
-
-        Iterator recorre = temporal.keySet().iterator();
-
-        while (recorre.hasNext()) {
-
-            String clave = (String) recorre.next();
-            if(clave.equalsIgnoreCase("p00")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.torreNegra)) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p01")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p02")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p03")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p04")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.reyNegro)) contador ++;
-            }
-
-        }
-        
-        return contador == 5;
-    }
-    
-    private boolean enrroqueLargoBlancas(){
-        
-        HashMap <String, String> temporal = tablero.piezasTablero();
-        
-        int contador = 0;
-
-        Iterator recorre = temporal.keySet().iterator();
-
-        while (recorre.hasNext()) {
-
-            String clave = (String) recorre.next();
-            if(clave.equalsIgnoreCase("p70")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.torreBlanca)) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p71")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p72")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p73")){
-                if (temporal.get(clave).equalsIgnoreCase("-")) contador ++;
-            }
-            
-            if(clave.equalsIgnoreCase("p74")){
-                if (temporal.get(clave).equalsIgnoreCase(piezas.reyBlanco)) contador ++;
-            }
-
-        }
-        
-        return contador == 5;
     }
 
     public boolean isEnrroqueCortoBlancas() {

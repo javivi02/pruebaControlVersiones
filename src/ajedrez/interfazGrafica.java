@@ -43,7 +43,7 @@ public class interfazGrafica extends javax.swing.JFrame {
         numeroMovimientosReyBlanco = 0;
         numeroMovimientosReyNegro = 0;
         
-        textInfo.setText("mueven " + turno.turnoActual());
+        textInfo.setText(turno.turnoActual().toUpperCase());
         
 //        this.p00.setEnabled(false);
     }
@@ -192,7 +192,7 @@ public class interfazGrafica extends javax.swing.JFrame {
     
     public void moverTorreBlancaEnrroqueCorto(){
         
-        tablero.actualizarTorreBlancaEnrroque();
+        tablero.actualizarTorreBlancaEnrroqueCorto();
         tablero.actualizarCoordenadasPiezasBlancas("p77", "p75");
         tablero.actualizarCoordenada("p77", "p75");
         coordenadaJButton("p77").setIcon(null);
@@ -201,11 +201,29 @@ public class interfazGrafica extends javax.swing.JFrame {
     
     public void moverTorreNegraEnrroqueCorto(){
         
-        tablero.actualizarTorreNegraEnrroque();
+        tablero.actualizarTorreNegraEnrroqueCorto();
         tablero.actualizarCoordenadasPiezasNegras("p07", "p05");
         tablero.actualizarCoordenada("p07", "p05");
         coordenadaJButton("p07").setIcon(null);
         coordenadaJButton("p05").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); 
+    }
+    
+    public void moverTorreBlancaEnrroqueLargo(){
+        
+        tablero.actualizarTorreBlancaEnrroqueLargo();
+        tablero.actualizarCoordenadasPiezasBlancas("p70", "p73");
+        tablero.actualizarCoordenada("p70", "p73");
+        coordenadaJButton("p70").setIcon(null);
+        coordenadaJButton("p73").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); 
+    }
+    
+    public void moverTorreNegraEnrroqueLargo(){
+        
+        tablero.actualizarTorreNegraEnrroqueLargo();
+        tablero.actualizarCoordenadasPiezasNegras("p00", "p03");
+        tablero.actualizarCoordenada("p00", "p03");
+        coordenadaJButton("p00").setIcon(null);
+        coordenadaJButton("p03").setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); 
     }
     
     /**
@@ -266,8 +284,8 @@ public class interfazGrafica extends javax.swing.JFrame {
         
         String temporal = turno.turnoActual();
         
-        if (temporal.equalsIgnoreCase("blancas"))this.textInfo.setText("Turno BLANCAS");
-        if (temporal.equalsIgnoreCase("negras"))this.textInfo.setText("Turno NEGRAS");
+        if (temporal.equalsIgnoreCase("blancas"))this.textInfo.setText("BLANCAS");
+        if (temporal.equalsIgnoreCase("negras"))this.textInfo.setText("NEGRAS");
         
     }
 
@@ -714,6 +732,7 @@ public class interfazGrafica extends javax.swing.JFrame {
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     numeroMovimientosReyBlanco++;
                     if(movimientos.isEnrroqueCortoBlancas()) moverTorreBlancaEnrroqueCorto();
+                    if(movimientos.isEnrroqueLargoBlancas()) moverTorreBlancaEnrroqueLargo();
                     
                 }else{
                     
@@ -722,6 +741,7 @@ public class interfazGrafica extends javax.swing.JFrame {
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                     numeroMovimientosReyNegro++;
                     if(movimientos.isEnrroqueCortoNegras()) moverTorreNegraEnrroqueCorto();
+                    if(movimientos.isEnrroqueLargoNegras()) moverTorreNegraEnrroqueLargo();
                        
                 }
 
@@ -763,7 +783,7 @@ public class interfazGrafica extends javax.swing.JFrame {
             clickJButton = true;
             resetearBackgroud();
             
-            textInfo.setText("mueven " + turno.turnoActual());
+            textInfo.setText(turno.turnoActual().toUpperCase());
         }
     }
     
@@ -771,18 +791,28 @@ public class interfazGrafica extends javax.swing.JFrame {
         
         if(comprueba.jaqueBlancas()){
             
-            System.out.println("JAQUE !!!! REY BLANCO");
+            System.out.println("JAQUE REY BLANCO");
+            textInfo1.setText("JAQUE !!! REY BLANCO");
             comprueba.setBlancasJaque(true); // Para activar o desactivar enrroque
             
-        } else comprueba.setBlancasJaque(false);
+        } else{
+            
+            comprueba.setBlancasJaque(false);
+            textInfo1.setText("");
+        }
         
         
         if(comprueba.jaqueNegras()){
             
-            System.out.println("JAQUE !!!! REY NEGRO");
+            System.out.println("JAQUE REY NEGRO");
+            textInfo1.setText("JAQUE !!! REY NEGRO");
             comprueba.setNegrasJaque(true); // Para activar o desactivar enrroque
             
-        } else comprueba.setNegrasJaque(false);
+        } else{
+            
+            textInfo1.setText("");
+            comprueba.setNegrasJaque(false);
+        }
         
 //        System.out.println("------");
 //        System.out.println(comprueba.isBlancasJaque());
@@ -902,9 +932,36 @@ public class interfazGrafica extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         textInfo = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        labelPeon = new javax.swing.JLabel();
-        textPeon = new javax.swing.JTextField();
+        labelPeonNegro = new javax.swing.JLabel();
+        textPeonNegro = new javax.swing.JTextField();
+        labelCaballoNegro = new javax.swing.JLabel();
+        textCaballoNegro = new javax.swing.JTextField();
+        labelAlfilNegro = new javax.swing.JLabel();
+        textAlfilNegro = new javax.swing.JTextField();
+        labelTorreNegro = new javax.swing.JLabel();
+        textTorreNegro = new javax.swing.JTextField();
+        labelDamaNegro = new javax.swing.JLabel();
+        textDamaNegro = new javax.swing.JTextField();
+        labelReyNegro = new javax.swing.JLabel();
+        textReyNegro = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        labelPeonNegro1 = new javax.swing.JLabel();
+        textPeonNegro1 = new javax.swing.JTextField();
+        labelCaballoNegro1 = new javax.swing.JLabel();
+        textCaballoNegro1 = new javax.swing.JTextField();
+        labelAlfilNegro1 = new javax.swing.JLabel();
+        textAlfilNegro1 = new javax.swing.JTextField();
+        labelTorreNegro1 = new javax.swing.JLabel();
+        textTorreNegro1 = new javax.swing.JTextField();
+        labelDamaNegro1 = new javax.swing.JLabel();
+        textDamaNegro1 = new javax.swing.JTextField();
+        labelReyNegro1 = new javax.swing.JLabel();
+        textReyNegro1 = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        textInfo1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1519,48 +1576,160 @@ public class interfazGrafica extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         textInfo.setBackground(new java.awt.Color(204, 204, 204));
-        textInfo.setFont(new java.awt.Font("Chalkboard", 1, 20)); // NOI18N
+        textInfo.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 16)); // NOI18N
         textInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel9.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 16)); // NOI18N
+        jLabel9.setText("TURNO");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jLabel9))
                 .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setLayout(new java.awt.GridLayout(6, 2));
 
-        labelPeon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
-        labelPeon.setEnabled(false);
+        labelPeonNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png"))); // NOI18N
+        labelPeonNegro.setEnabled(false);
+        jPanel5.add(labelPeonNegro);
 
-        textPeon.setBackground(new java.awt.Color(204, 204, 204));
-        textPeon.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        textPeonNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textPeonNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textPeonNegro);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(labelPeon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textPeon, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        labelCaballoNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bn.png"))); // NOI18N
+        labelCaballoNegro.setEnabled(false);
+        jPanel5.add(labelCaballoNegro);
+
+        textCaballoNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textCaballoNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textCaballoNegro);
+
+        labelAlfilNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bb.png"))); // NOI18N
+        labelAlfilNegro.setEnabled(false);
+        jPanel5.add(labelAlfilNegro);
+
+        textAlfilNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textAlfilNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textAlfilNegro);
+
+        labelTorreNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png"))); // NOI18N
+        labelTorreNegro.setEnabled(false);
+        jPanel5.add(labelTorreNegro);
+
+        textTorreNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textTorreNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textTorreNegro);
+
+        labelDamaNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png"))); // NOI18N
+        labelDamaNegro.setEnabled(false);
+        jPanel5.add(labelDamaNegro);
+
+        textDamaNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textDamaNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textDamaNegro);
+
+        labelReyNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png"))); // NOI18N
+        labelReyNegro.setEnabled(false);
+        jPanel5.add(labelReyNegro);
+
+        textReyNegro.setBackground(new java.awt.Color(204, 204, 204));
+        textReyNegro.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel5.add(textReyNegro);
+
+        jPanel6.add(jPanel5);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel7.setLayout(new java.awt.GridLayout(6, 2));
+
+        labelPeonNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
+        labelPeonNegro1.setEnabled(false);
+        jPanel7.add(labelPeonNegro1);
+
+        textPeonNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textPeonNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textPeonNegro1);
+
+        labelCaballoNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png"))); // NOI18N
+        labelCaballoNegro1.setEnabled(false);
+        jPanel7.add(labelCaballoNegro1);
+
+        textCaballoNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textCaballoNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textCaballoNegro1);
+
+        labelAlfilNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png"))); // NOI18N
+        labelAlfilNegro1.setEnabled(false);
+        jPanel7.add(labelAlfilNegro1);
+
+        textAlfilNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textAlfilNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textAlfilNegro1);
+
+        labelTorreNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); // NOI18N
+        labelTorreNegro1.setEnabled(false);
+        jPanel7.add(labelTorreNegro1);
+
+        textTorreNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textTorreNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textTorreNegro1);
+
+        labelDamaNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png"))); // NOI18N
+        labelDamaNegro1.setEnabled(false);
+        jPanel7.add(labelDamaNegro1);
+
+        textDamaNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textDamaNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textDamaNegro1);
+
+        labelReyNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png"))); // NOI18N
+        labelReyNegro1.setEnabled(false);
+        jPanel7.add(labelReyNegro1);
+
+        textReyNegro1.setBackground(new java.awt.Color(204, 204, 204));
+        textReyNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textReyNegro1);
+
+        jPanel6.add(jPanel7);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        textInfo1.setBackground(new java.awt.Color(204, 204, 204));
+        textInfo1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 16)); // NOI18N
+        textInfo1.setForeground(new java.awt.Color(255, 0, 51));
+        textInfo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textPeon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPeon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 68, Short.MAX_VALUE))
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1568,7 +1737,7 @@ public class interfazGrafica extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
@@ -1601,13 +1770,20 @@ public class interfazGrafica extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1628,7 +1804,7 @@ public class interfazGrafica extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -1645,13 +1821,14 @@ public class interfazGrafica extends javax.swing.JFrame {
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -2097,12 +2274,27 @@ public class interfazGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    public javax.swing.JLabel labelPeon;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    public javax.swing.JLabel labelAlfilNegro;
+    public javax.swing.JLabel labelAlfilNegro1;
+    public javax.swing.JLabel labelCaballoNegro;
+    public javax.swing.JLabel labelCaballoNegro1;
+    public javax.swing.JLabel labelDamaNegro;
+    public javax.swing.JLabel labelDamaNegro1;
+    public javax.swing.JLabel labelPeonNegro;
+    public javax.swing.JLabel labelPeonNegro1;
+    public javax.swing.JLabel labelReyNegro;
+    public javax.swing.JLabel labelReyNegro1;
+    public javax.swing.JLabel labelTorreNegro;
+    public javax.swing.JLabel labelTorreNegro1;
     private javax.swing.JButton p00;
     private javax.swing.JButton p01;
     private javax.swing.JButton p02;
@@ -2167,7 +2359,19 @@ public class interfazGrafica extends javax.swing.JFrame {
     private javax.swing.JButton p75;
     private javax.swing.JButton p76;
     private javax.swing.JButton p77;
+    public javax.swing.JTextField textAlfilNegro;
+    public javax.swing.JTextField textAlfilNegro1;
+    public javax.swing.JTextField textCaballoNegro;
+    public javax.swing.JTextField textCaballoNegro1;
+    public javax.swing.JTextField textDamaNegro;
+    public javax.swing.JTextField textDamaNegro1;
     private javax.swing.JTextField textInfo;
-    public javax.swing.JTextField textPeon;
+    private javax.swing.JTextField textInfo1;
+    public javax.swing.JTextField textPeonNegro;
+    public javax.swing.JTextField textPeonNegro1;
+    public javax.swing.JTextField textReyNegro;
+    public javax.swing.JTextField textReyNegro1;
+    public javax.swing.JTextField textTorreNegro;
+    public javax.swing.JTextField textTorreNegro1;
     // End of variables declaration//GEN-END:variables
 }

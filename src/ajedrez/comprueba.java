@@ -180,7 +180,7 @@ public class comprueba {
     
     public ArrayList <String> movimientosBlancas(){
         
-       ArrayList <String> movimientosNegras = new ArrayList<>();
+       ArrayList <String> movimientosBlancas = new ArrayList<>();
        ArrayList <String> temporal = tablero.getCoordenadasPiezasBlancas();
        String ficha = null;
         
@@ -192,43 +192,43 @@ public class comprueba {
                 
                 case piezas.peonBlanco: 
                     for (int j = 0; j < movimientos.moverPeonBlanco(temporal.get(i), tablero.getCoordenadasPiezasBlancas()).size(); j++) {
-                        movimientosNegras.add(movimientos.moverPeonBlanco(temporal.get(i), tablero.getCoordenadasPiezasBlancas()).get(j));
+                        movimientosBlancas.add(movimientos.moverPeonBlanco(temporal.get(i), tablero.getCoordenadasPiezasBlancas()).get(j));
                     }
                     break;
                     
                 case piezas.torreBlanca:
                     for (int j = 0; j < movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).size(); j++) {
-                        movimientosNegras.add(movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
+                        movimientosBlancas.add(movimientos.moverTorre(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
                     }
                     break;
                     
                 case piezas.reyBlanco:
                     for (int j = 0; j < movimientos.moverRey(temporal.get(i), piezas.reyNegro).size(); j++) {
-                        movimientosNegras.add(movimientos.moverRey(temporal.get(i), piezas.reyNegro).get(j));
+                        movimientosBlancas.add(movimientos.moverRey(temporal.get(i), piezas.reyNegro).get(j));
                     }
                     break;
                     
                 case piezas.caballoBlanco: 
                     for (int j = 0; j < movimientos.moverCaballo(temporal.get(i)).size(); j++) {
-                        movimientosNegras.add(movimientos.moverCaballo(temporal.get(i)).get(j));
+                        movimientosBlancas.add(movimientos.moverCaballo(temporal.get(i)).get(j));
                     }
                     break;
                     
                 case piezas.alfilBlanco: 
                     for (int j = 0; j < movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).size(); j++) {
-                        movimientosNegras.add(movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
+                        movimientosBlancas.add(movimientos.moverAlfil(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
                     }
                     break;
                     
                 case piezas.damaBlanca: 
                     for (int j = 0; j < movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).size(); j++) {
-                        movimientosNegras.add(movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
+                        movimientosBlancas.add(movimientos.moverDama(tablero.getCoordenadasPiezasBlancas(), tablero.getCoordenadasPiezasNegras(), temporal.get(i), ficha).get(j));
                     }
                     break;   
             }
         }
         
-        return movimientosNegras;
+        return movimientosBlancas;
     }
     
     
@@ -411,8 +411,8 @@ public class comprueba {
         
         contadorPeonNegro++;
         
-        interfazGrafica.labelPeon.setEnabled(true);
-        interfazGrafica.textPeon.setText("X" + contadorPeonNegro);
+        interfazGrafica.labelPeonNegro.setEnabled(true);
+        interfazGrafica.textPeonNegro.setText("X" + contadorPeonNegro);
 
     }
 
