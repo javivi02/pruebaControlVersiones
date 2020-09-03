@@ -25,6 +25,9 @@ public class movimientos {
         
         enrroqueCortoBlancas = false;
         enrroqueCortoNegras = false;
+        enrroqueLargoBlancas = false;
+        enrroqueLargoNegras = false;
+        
         
     }
     
@@ -466,18 +469,18 @@ public class movimientos {
             enrroqueCortoBlancas = true;
         } 
         
-        if (comprueba.enrroqueCortoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
-                && comprueba.isNegrasJaque() == false && negro == true){
-            resultado.add("p" + fila + (columna + 2));
-            enrroqueCortoNegras = true;
-        } 
-        
         if (comprueba.enrroqueLargoBlancas() && interfazGrafica.numeroMovimientosReyBlanco == 0
                 && comprueba.isBlancasJaque() == false && blanco == true){
             resultado.add("p" + fila + (columna - 2));
             enrroqueLargoBlancas = true;
         }
         
+        if (comprueba.enrroqueCortoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
+                && comprueba.isNegrasJaque() == false && negro == true){
+            resultado.add("p" + fila + (columna + 2));
+            enrroqueCortoNegras = true;
+        } 
+
         if (comprueba.enrroqueLargoNegras() && interfazGrafica.numeroMovimientosReyNegro == 0
                 && comprueba.isNegrasJaque() == false && negro == true){
             resultado.add("p" + fila + (columna - 2));
@@ -524,6 +527,24 @@ public class movimientos {
     public boolean isEnrroqueLargoNegras() {
         return enrroqueLargoNegras;
     }
+
+    public void setEnrroqueCortoBlancas(boolean enrroqueCortoBlancas) {
+        this.enrroqueCortoBlancas = enrroqueCortoBlancas;
+    }
+
+    public void setEnrroqueCortoNegras(boolean enrroqueCortoNegras) {
+        this.enrroqueCortoNegras = enrroqueCortoNegras;
+    }
+
+    public void setEnrroqueLargoBlancas(boolean enrroqueLargoBlancas) {
+        this.enrroqueLargoBlancas = enrroqueLargoBlancas;
+    }
+
+    public void setEnrroqueLargoNegras(boolean enrroqueLargoNegras) {
+        this.enrroqueLargoNegras = enrroqueLargoNegras;
+    }
+    
+    
     
     public static void main(String[] args) {
          

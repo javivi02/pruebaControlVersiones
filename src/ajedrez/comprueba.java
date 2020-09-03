@@ -11,6 +11,14 @@ public class comprueba {
     private movimientos movimientos;
     
     private int contadorPeonNegro;
+    private int contadorCaballoNegro;
+    private int contadorAlfilNegro;
+    private int contadorTorreNegro;
+    
+    private int contadorPeonBlanco;
+    private int contadorCaballoBlanco;
+    private int contadorAlfilBlanco;
+    private int contadorTorreBlanco;
     
     private static boolean blancasJaque;
     private static boolean negrasJaque;
@@ -22,6 +30,14 @@ public class comprueba {
         this.movimientos = movimientos;
         
         contadorPeonNegro = 0;
+        contadorPeonBlanco = 0;
+        contadorCaballoNegro = 0;
+        contadorCaballoBlanco = 0;
+        contadorAlfilNegro = 0;
+        contadorAlfilBlanco = 0;
+        contadorTorreNegro = 0;
+        contadorTorreBlanco = 0;
+        
         
         blancasJaque = false;
         negrasJaque = false;
@@ -253,6 +269,26 @@ public class comprueba {
         return resultado;
     }
     
+    public boolean coordenadaInicioMenorFinal(String coordenadaInicio, String coordenadaFinal){
+        
+        String temporal [] = coordenadaInicio.split("");
+        
+        int fila = Integer.parseInt(temporal[1]);
+        int columna = Integer.parseInt(temporal[2]);
+        
+        int resultado = fila + columna;
+        
+        String temporal2 [] = coordenadaFinal.split("");
+        
+        int fila2 = Integer.parseInt(temporal2[1]);
+        int columna2 = Integer.parseInt(temporal2[2]);
+        
+        int resultado2 = fila2 + columna2;
+        
+        return resultado < resultado2;
+        
+    }
+    
     public boolean enrroqueCortoBlancas(){
         
         HashMap <String, String> temporal = tablero.piezasTablero();
@@ -393,26 +429,122 @@ public class comprueba {
     
     public void comerFicha(String coordenadaFinal){
         
-        if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-")){
-            
-            tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal);
-        }
-        
         String tipoFicha = interfazGrafica.getPiezaCoordenadaTablero(coordenadaFinal);
         
+        if(tipoFicha.contains("B")){
+            if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-")) tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal);
+        }else{
+            if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-")) tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal);
+        }
+
         switch(tipoFicha){
             
-            case "PN": peonNegroUpdate();
+            case piezas.peonNegro: peonUpdate(tipoFicha); break;
+            case piezas.caballoNegro: caballoUpdate(tipoFicha); break; 
+            case piezas.alfilNegro: alfilUpdate(tipoFicha); break;
+            case piezas.torreNegra: torreUpdate(tipoFicha); break;
+            case piezas.damaNegra: damaUpdate(tipoFicha); break;
+            case piezas.reyNegro: reyUpdate(tipoFicha); break;
+            
+            case piezas.peonBlanco: peonUpdate(tipoFicha); break;
+            case piezas.caballoBlanco: caballoUpdate(tipoFicha); break; 
+            case piezas.alfilBlanco: alfilUpdate(tipoFicha); break;
+            case piezas.torreBlanca: torreUpdate(tipoFicha); break;
+            case piezas.damaBlanca: damaUpdate(tipoFicha); break;
+            case piezas.reyBlanco: reyUpdate(tipoFicha); break;
+        }
+    }
+    
+    private void peonUpdate(String tipoFicha){
+        
+        if(tipoFicha.contains("B")){
+            
+            contadorPeonBlanco++;
+        
+            interfazGrafica.labelPeonBlanco.setEnabled(true);
+            interfazGrafica.textPeonBlanco.setText("X" + contadorPeonBlanco);
+            
+        } else {
+            
+            contadorPeonNegro++;
+        
+            interfazGrafica.labelPeonNegro.setEnabled(true);
+            interfazGrafica.textPeonNegro.setText("X" + contadorPeonNegro);
             
         }
     }
     
-    private void peonNegroUpdate(){
+    private void caballoUpdate(String tipoFicha){
         
-        contadorPeonNegro++;
+        if(tipoFicha.contains("B")){
+            
+            contadorCaballoBlanco++;
         
-        interfazGrafica.labelPeonNegro.setEnabled(true);
-        interfazGrafica.textPeonNegro.setText("X" + contadorPeonNegro);
+            interfazGrafica.labelCaballoBlanco.setEnabled(true);
+            interfazGrafica.textCaballoBlanco.setText("X" + contadorCaballoBlanco);
+            
+        } else {
+            
+            contadorCaballoNegro++;
+        
+            interfazGrafica.labelCaballoNegro.setEnabled(true);
+            interfazGrafica.textCaballoNegro.setText("X" + contadorCaballoNegro);
+            
+        }
+
+    }
+    
+    private void alfilUpdate(String tipoFicha){
+        
+        if(tipoFicha.contains("B")){
+            
+            contadorAlfilBlanco++;
+        
+            interfazGrafica.labelAlfilBlanco.setEnabled(true);
+            interfazGrafica.textAlfilBlanco.setText("X" + contadorAlfilBlanco);
+            
+        } else {
+            
+            contadorAlfilNegro++;
+        
+            interfazGrafica.labelAlfilNegro.setEnabled(true);
+            interfazGrafica.textAlfilNegro.setText("X" + contadorAlfilNegro);
+            
+        }
+
+    }
+    
+    private void torreUpdate(String tipoFicha){
+        
+        if(tipoFicha.contains("B")){
+            
+            contadorTorreBlanco++;
+        
+            interfazGrafica.labelTorreBlanco.setEnabled(true);
+            interfazGrafica.textTorreBlanco.setText("X" + contadorTorreBlanco);
+            
+        } else {
+            
+            contadorTorreNegro++;
+        
+            interfazGrafica.labelTorreNegro.setEnabled(true);
+            interfazGrafica.textTorreNegro.setText("X" + contadorTorreNegro);
+            
+        }
+
+    }
+    
+    private void damaUpdate(String tipoFicha){
+        
+        if(tipoFicha.contains("B"))  interfazGrafica.labelDamaBlanco.setEnabled(true);
+        else interfazGrafica.labelDamaNegro.setEnabled(true);
+
+    }
+    
+    private void reyUpdate(String tipoFicha){
+        
+        if(tipoFicha.contains("B"))  interfazGrafica.labelReyBlanco.setEnabled(true);
+        else interfazGrafica.labelReyNegro.setEnabled(true);
 
     }
 
@@ -431,11 +563,5 @@ public class comprueba {
     public static void setNegrasJaque(boolean negrasJaque) {
         comprueba.negrasJaque = negrasJaque;
     }
-    
-    
-    
-
-    
-    
     
 }

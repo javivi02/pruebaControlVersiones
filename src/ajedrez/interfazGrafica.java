@@ -553,14 +553,13 @@ public class interfazGrafica extends javax.swing.JFrame {
                 
                 if(tipoFicha.contains("B")){
                     
-                    //if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
                     comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                 }else {
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bn.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                 }
@@ -582,7 +581,7 @@ public class interfazGrafica extends javax.swing.JFrame {
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
-                if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                comprueba.comerFicha(coordenadaFinal);
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -603,7 +602,7 @@ public class interfazGrafica extends javax.swing.JFrame {
         for (int i = 0; i < temporal.size(); i++) {
             if (coordenadaFinal.equalsIgnoreCase(temporal.get(i))) {
 
-                if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                comprueba.comerFicha(coordenadaFinal);
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bp.png")));
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -628,13 +627,13 @@ public class interfazGrafica extends javax.swing.JFrame {
                 
                 if(tipoFicha.contains("B")){
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                 }else{
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/br.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
 
@@ -660,13 +659,13 @@ public class interfazGrafica extends javax.swing.JFrame {
                 
                 if (tipoFicha.contains("B")){
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                 }else{
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bb.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
                     
@@ -692,13 +691,13 @@ public class interfazGrafica extends javax.swing.JFrame {
                 
                 if (tipoFicha.contains("B")){
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
                     
                 }else{
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bq.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
 
@@ -714,6 +713,9 @@ public class interfazGrafica extends javax.swing.JFrame {
     }
     
     private void moverRey(String coordenadaInicio, String coordenadaFinal, String tipoFicha) {
+        
+        System.out.println(coordenadaInicio);
+        System.out.println(coordenadaFinal);
 
         ArrayList<String> temporal = new ArrayList<>();
         
@@ -726,23 +728,59 @@ public class interfazGrafica extends javax.swing.JFrame {
                 coordenadaJButton(coordenadaIncio).setIcon(null);
                 
                 if(tipoFicha.contains("B")){
-                    
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasNegras(coordenadaFinal); //Si como a una ficha
+                   
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png")));
                     tablero.actualizarCoordenadasPiezasBlancas(coordenadaInicio, coordenadaFinal);
-                    numeroMovimientosReyBlanco++;
-                    if(movimientos.isEnrroqueCortoBlancas()) moverTorreBlancaEnrroqueCorto();
-                    if(movimientos.isEnrroqueLargoBlancas()) moverTorreBlancaEnrroqueLargo();
                     
+                    // En el caso de que halla posible enroque largo y corto a la vez, para que entre en no u en otro
+                    if(comprueba.coordenadaInicioMenorFinal(coordenadaInicio, coordenadaFinal)){
+                        
+                        if(movimientos.isEnrroqueCortoBlancas()) {
+                            
+                            moverTorreBlancaEnrroqueCorto();
+                            movimientos.setEnrroqueCortoBlancas(false);
+                            movimientos.setEnrroqueLargoBlancas(false);
+                        }
+                        
+                    }else{
+                        
+                        if(movimientos.isEnrroqueLargoBlancas()){
+                            
+                            moverTorreBlancaEnrroqueLargo();
+                            movimientos.setEnrroqueLargoBlancas(false);
+                            movimientos.setEnrroqueCortoBlancas(false);
+                        }
+                        
+                    }
+                    
+                    numeroMovimientosReyBlanco++;
+  
                 }else{
                     
-                    if(!tablero.contenidoCoordenada(coordenadaFinal).equalsIgnoreCase("-"))tablero.eliminarCoordenadasPiezasBlancas(coordenadaFinal); //Si como a una ficha
+                    comprueba.comerFicha(coordenadaFinal);
                     coordenadaJButton(coordenadaFinal).setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bk.png")));
                     tablero.actualizarCoordenadasPiezasNegras(coordenadaInicio, coordenadaFinal);
+
+                    // En el caso de que halla posible enroque largo y corto a la vez, para que entre en no u en otro
+                    if(comprueba.coordenadaInicioMenorFinal(coordenadaInicio, coordenadaFinal)){
+                        
+                        if (movimientos.isEnrroqueCortoNegras()) {
+                            moverTorreNegraEnrroqueCorto();
+                            movimientos.setEnrroqueCortoNegras(false);
+                            movimientos.setEnrroqueLargoNegras(false);
+                        }
+
+                    } else {
+                        
+                        if (movimientos.isEnrroqueLargoNegras()) {
+                            moverTorreNegraEnrroqueLargo();
+                            movimientos.setEnrroqueLargoNegras(false);
+                            movimientos.setEnrroqueCortoNegras(false);
+                        }
+                    }
+                    
                     numeroMovimientosReyNegro++;
-                    if(movimientos.isEnrroqueCortoNegras()) moverTorreNegraEnrroqueCorto();
-                    if(movimientos.isEnrroqueLargoNegras()) moverTorreNegraEnrroqueLargo();
-                       
                 }
 
                 tablero.actualizarCoordenada(coordenadaIncio, coordenadaFinal);
@@ -753,7 +791,6 @@ public class interfazGrafica extends javax.swing.JFrame {
             }
         }
     }
-    
     
     private void pasosAlHacerClick(String coordenada){
         
@@ -808,16 +845,7 @@ public class interfazGrafica extends javax.swing.JFrame {
             textInfo1.setText("JAQUE !!! REY NEGRO");
             comprueba.setNegrasJaque(true); // Para activar o desactivar enrroque
             
-        } else{
-            
-            textInfo1.setText("");
-            comprueba.setNegrasJaque(false);
-        }
-        
-//        System.out.println("------");
-//        System.out.println(comprueba.isBlancasJaque());
-//        System.out.println("------");
-//        System.out.println(comprueba.isNegrasJaque());
+        } else comprueba.setNegrasJaque(false);
         
     }
     
@@ -948,18 +976,18 @@ public class interfazGrafica extends javax.swing.JFrame {
         labelReyNegro = new javax.swing.JLabel();
         textReyNegro = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        labelPeonNegro1 = new javax.swing.JLabel();
-        textPeonNegro1 = new javax.swing.JTextField();
-        labelCaballoNegro1 = new javax.swing.JLabel();
-        textCaballoNegro1 = new javax.swing.JTextField();
-        labelAlfilNegro1 = new javax.swing.JLabel();
-        textAlfilNegro1 = new javax.swing.JTextField();
-        labelTorreNegro1 = new javax.swing.JLabel();
-        textTorreNegro1 = new javax.swing.JTextField();
-        labelDamaNegro1 = new javax.swing.JLabel();
-        textDamaNegro1 = new javax.swing.JTextField();
-        labelReyNegro1 = new javax.swing.JLabel();
-        textReyNegro1 = new javax.swing.JTextField();
+        labelPeonBlanco = new javax.swing.JLabel();
+        textPeonBlanco = new javax.swing.JTextField();
+        labelCaballoBlanco = new javax.swing.JLabel();
+        textCaballoBlanco = new javax.swing.JTextField();
+        labelAlfilBlanco = new javax.swing.JLabel();
+        textAlfilBlanco = new javax.swing.JTextField();
+        labelTorreBlanco = new javax.swing.JLabel();
+        textTorreBlanco = new javax.swing.JTextField();
+        labelDamaBlanco = new javax.swing.JLabel();
+        textDamaBlanco = new javax.swing.JTextField();
+        labelReyBlanco = new javax.swing.JLabel();
+        textReyBlanco = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         textInfo1 = new javax.swing.JTextField();
 
@@ -1587,9 +1615,9 @@ public class interfazGrafica extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1658,53 +1686,53 @@ public class interfazGrafica extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel7.setLayout(new java.awt.GridLayout(6, 2));
 
-        labelPeonNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
-        labelPeonNegro1.setEnabled(false);
-        jPanel7.add(labelPeonNegro1);
+        labelPeonBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp.png"))); // NOI18N
+        labelPeonBlanco.setEnabled(false);
+        jPanel7.add(labelPeonBlanco);
 
-        textPeonNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textPeonNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textPeonNegro1);
+        textPeonBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textPeonBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textPeonBlanco);
 
-        labelCaballoNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png"))); // NOI18N
-        labelCaballoNegro1.setEnabled(false);
-        jPanel7.add(labelCaballoNegro1);
+        labelCaballoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wn.png"))); // NOI18N
+        labelCaballoBlanco.setEnabled(false);
+        jPanel7.add(labelCaballoBlanco);
 
-        textCaballoNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textCaballoNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textCaballoNegro1);
+        textCaballoBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textCaballoBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textCaballoBlanco);
 
-        labelAlfilNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png"))); // NOI18N
-        labelAlfilNegro1.setEnabled(false);
-        jPanel7.add(labelAlfilNegro1);
+        labelAlfilBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wb.png"))); // NOI18N
+        labelAlfilBlanco.setEnabled(false);
+        jPanel7.add(labelAlfilBlanco);
 
-        textAlfilNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textAlfilNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textAlfilNegro1);
+        textAlfilBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textAlfilBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textAlfilBlanco);
 
-        labelTorreNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); // NOI18N
-        labelTorreNegro1.setEnabled(false);
-        jPanel7.add(labelTorreNegro1);
+        labelTorreBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wr.png"))); // NOI18N
+        labelTorreBlanco.setEnabled(false);
+        jPanel7.add(labelTorreBlanco);
 
-        textTorreNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textTorreNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textTorreNegro1);
+        textTorreBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textTorreBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textTorreBlanco);
 
-        labelDamaNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png"))); // NOI18N
-        labelDamaNegro1.setEnabled(false);
-        jPanel7.add(labelDamaNegro1);
+        labelDamaBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wq.png"))); // NOI18N
+        labelDamaBlanco.setEnabled(false);
+        jPanel7.add(labelDamaBlanco);
 
-        textDamaNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textDamaNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textDamaNegro1);
+        textDamaBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textDamaBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textDamaBlanco);
 
-        labelReyNegro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png"))); // NOI18N
-        labelReyNegro1.setEnabled(false);
-        jPanel7.add(labelReyNegro1);
+        labelReyBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wk.png"))); // NOI18N
+        labelReyBlanco.setEnabled(false);
+        jPanel7.add(labelReyBlanco);
 
-        textReyNegro1.setBackground(new java.awt.Color(204, 204, 204));
-        textReyNegro1.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
-        jPanel7.add(textReyNegro1);
+        textReyBlanco.setBackground(new java.awt.Color(204, 204, 204));
+        textReyBlanco.setFont(new java.awt.Font("Apple SD Gothic Neo", 1, 18)); // NOI18N
+        jPanel7.add(textReyBlanco);
 
         jPanel6.add(jPanel7);
 
@@ -1770,18 +1798,14 @@ public class interfazGrafica extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))))
         );
@@ -2283,18 +2307,18 @@ public class interfazGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    public javax.swing.JLabel labelAlfilBlanco;
     public javax.swing.JLabel labelAlfilNegro;
-    public javax.swing.JLabel labelAlfilNegro1;
+    public javax.swing.JLabel labelCaballoBlanco;
     public javax.swing.JLabel labelCaballoNegro;
-    public javax.swing.JLabel labelCaballoNegro1;
+    public javax.swing.JLabel labelDamaBlanco;
     public javax.swing.JLabel labelDamaNegro;
-    public javax.swing.JLabel labelDamaNegro1;
+    public javax.swing.JLabel labelPeonBlanco;
     public javax.swing.JLabel labelPeonNegro;
-    public javax.swing.JLabel labelPeonNegro1;
+    public javax.swing.JLabel labelReyBlanco;
     public javax.swing.JLabel labelReyNegro;
-    public javax.swing.JLabel labelReyNegro1;
+    public javax.swing.JLabel labelTorreBlanco;
     public javax.swing.JLabel labelTorreNegro;
-    public javax.swing.JLabel labelTorreNegro1;
     private javax.swing.JButton p00;
     private javax.swing.JButton p01;
     private javax.swing.JButton p02;
@@ -2359,19 +2383,19 @@ public class interfazGrafica extends javax.swing.JFrame {
     private javax.swing.JButton p75;
     private javax.swing.JButton p76;
     private javax.swing.JButton p77;
+    public javax.swing.JTextField textAlfilBlanco;
     public javax.swing.JTextField textAlfilNegro;
-    public javax.swing.JTextField textAlfilNegro1;
+    public javax.swing.JTextField textCaballoBlanco;
     public javax.swing.JTextField textCaballoNegro;
-    public javax.swing.JTextField textCaballoNegro1;
+    public javax.swing.JTextField textDamaBlanco;
     public javax.swing.JTextField textDamaNegro;
-    public javax.swing.JTextField textDamaNegro1;
     private javax.swing.JTextField textInfo;
     private javax.swing.JTextField textInfo1;
+    public javax.swing.JTextField textPeonBlanco;
     public javax.swing.JTextField textPeonNegro;
-    public javax.swing.JTextField textPeonNegro1;
+    public javax.swing.JTextField textReyBlanco;
     public javax.swing.JTextField textReyNegro;
-    public javax.swing.JTextField textReyNegro1;
+    public javax.swing.JTextField textTorreBlanco;
     public javax.swing.JTextField textTorreNegro;
-    public javax.swing.JTextField textTorreNegro1;
     // End of variables declaration//GEN-END:variables
 }
